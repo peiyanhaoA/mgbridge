@@ -1,6 +1,6 @@
 <template>
-  <div id="sidebar" class="h-100 d-inline-block ">
-     <ul class="nav nav-pills bg-dark position-absolute h-100" id="pills-tab" role="tablist" >
+  <div id="sidebar" class="h-100 d-inline-block position-absolute">
+     <ul class="nav nav-pills bg-dark h-100" id="pills-tab" role="tablist" >
         <li style="height:80px"></li>
         <li class="nav-item">
             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
@@ -17,31 +17,26 @@
         </li>
         <li class="fold position-absolute fixed-bottom text-white border-top border-secondary">折叠</li>
     </ul>
-    <div class="tab-content position-absolute" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <recorded></recorded>
-        </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">home2</div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">home3</div>
-    </div>
   </div>
 
 </template>
 
 <script>
-import recorded from './recorded';
 export default {
   name: 'sidebar',
   data(){
       return{}
   },
   components:{
-      recorded
   }
 }
 </script>
 
 <style>
+#sidebar{
+    top:0;
+    left:0;
+}
 ul{
     width:200px;
 }
@@ -60,7 +55,6 @@ ul li{
 .tab-content{
     right:20px;
     bottom:20px;
-
 }
 
 </style>

@@ -1,14 +1,16 @@
 <template>
-
   <div id="home" class="h-100">
     <div id="allmap"></div>
     <my-sidebar></my-sidebar>
+    <recorded ref="recorded"></recorded>
   </div>
 </template>
 <script>
     import axios from 'axios';
     import Highcharts from 'highcharts';
     import mySidebar from '../components/sidebar';
+    import recorded from '../components/recorded';
+
 	// 添加环形遮罩层
 	function createRingOverlay (corver, map){
         // 添加环形遮罩层
@@ -64,86 +66,86 @@
 	
 	// 山水园社区楼号和单元
 	function creatCorver (building, map, that){
-        building.forEach(function(e) {
-            var point = new BMap.Point(e.lng, e.lat)
-            creatPie(point , that , e.text, map);
-        });
+    building.forEach(function(e) {
+        var point = new BMap.Point(e.lng, e.lat)
+        creatPie(point , that , e.text, map);
+    });
+  }
+
+  // 添加覆盖物
+
+  function creatPie (point , that , text , map){
+    function CommunityOverlay(point, width){
+        this._center = point;
+        this._width = width;
     }
 
-    // 添加覆盖物
-
-    function creatPie (point , that , text , map){
-        function CommunityOverlay(point, width){
-            this._center = point;
-            this._width = width;
-        }
-
-        CommunityOverlay.prototype = new BMap.Overlay();
-        
-        CommunityOverlay.prototype.initialize = function(){
-            this._map = map;
-            var div = document.createElement("div");  
-            div.style.position = "absolute";
-            div.style.width = this._width + "px";  
-            div.style.height = this._width + "px";
-            div.style.background = "transparent";
-            map.getPanes().markerPane.appendChild(div);
-            Highcharts.chart(div,{
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    backgroundColor: 'rgba(0,0,0,0)'
-                },
-                credits:{
-                    enabled: false // 禁用版权信息
-                },
-                title: {
-                    text: ''
-                },
-                tooltip: {
-                    pointFormat: '<b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: false,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        }
+    CommunityOverlay.prototype = new BMap.Overlay();
+      
+    CommunityOverlay.prototype.initialize = function(){
+        this._map = map;
+        var div = document.createElement("div");  
+        div.style.position = "absolute";
+        div.style.width = this._width + "px";  
+        div.style.height = this._width + "px";
+        div.style.background = "transparent";
+        map.getPanes().markerPane.appendChild(div);
+        Highcharts.chart(div,{
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+            credits:{
+                enabled: false // 禁用版权信息
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: false,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
                     }
-                },
-                series: [{
-                    type: 'pie',
-                    name: '房屋比例',
-                    data: [
-                        ['空房',   45.0],
-                        ['出租房',       26.8],
-                        ['未拿房',    8.5],
-                        ['自住房',     6.2]
-                    ]
-                }]
-            })
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: '房屋比例',
+                data: [
+                    ['空房',   45.0],
+                    ['出租房',       26.8],
+                    ['未拿房',    8.5],
+                    ['自住房',     6.2]
+                ]
+            }]
+        })
 
-            div.addEventListener('click',function(){
-                that.$store.commit('changeVal',{text: text});
-                that.$store.commit('getData');
-                that.$store.commit('changeWidth')
-            })
+        div.addEventListener('click',function(){
+            that.$store.commit('changeVal',{text: text});
+            that.$store.commit('getData');
+            that.$store.commit('changeWidth')
+        })
 
-            this._div = div;
-            return div;
-        }
-        CommunityOverlay.prototype.draw = function(){
-            var position = this._map.pointToOverlayPixel(this._center);
-            this._div.style.left = position.x - this._width / 2 + "px";  
-            this._div.style.top = position.y - this._width / 2 + "px";
-        }
-        var mySquare = new CommunityOverlay(point, 80);  
-        
-        map.addOverlay(mySquare);
-        
+        this._div = div;
+        return div;
     }
+    CommunityOverlay.prototype.draw = function(){
+        var position = this._map.pointToOverlayPixel(this._center);
+        this._div.style.left = position.x - this._width / 2 + "px";  
+        this._div.style.top = position.y - this._width / 2 + "px";
+    }
+    var mySquare = new CommunityOverlay(point, 80);  
+    
+    map.addOverlay(mySquare);
+      
+  }
 export default {
   data(){
     return {
@@ -175,7 +177,8 @@ export default {
       });
   },
   components:{
-    mySidebar
+    mySidebar,
+    recorded
   }
   
 }
