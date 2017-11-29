@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <div id="allmap"></div>
   </div>
@@ -172,6 +173,28 @@ export default {
         console.log(error);
       });
   }
+=======
+  <div id="home" class="h-100">
+    <my-sidebar></my-sidebar>
+  </div>
+</template>
+<script>
+import mySidebar from '../components/sidebar';
+export default {
+  name:'home',
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+
+  },
+  components:{
+    mySidebar
+  }
+  
+>>>>>>> d4018f871a06a7371bbb31d5fd6b07a2dbf5deee
 }
 </script>
 <style scoped>
