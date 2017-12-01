@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="login_d" :style="{'background-image':bg}">
+    <div id="login_d" >
       <div class="card position-absolute" id="info">
           <h3><b>流动人口管理系统</b></h3>
           <div id="login_ipt" class="d-flex flex-column justify-content-around">
@@ -26,7 +26,6 @@
 export default {
   data () {
     return {
-      bg: "url(" + require("../assets/nanjing.jpg") + ")"
     }
   },
   methods:{
@@ -37,11 +36,10 @@ export default {
 }
 </script>
 <style scoped>
-
 #login_d{
 	width: 100%;
 	height: 100%;
-
+  background:url('/static/nanjing.jpg') no-repeat;
   background-size: 100% 100%;
 }
 #info{

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src'));
-
+app.use(express.static('static'));
 app.use('/api', info);
 
 const server = app.listen(3000, function() {
