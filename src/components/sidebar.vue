@@ -3,7 +3,8 @@
      <ul class="nav nav-pills bg-dark h-100" id="pills-tab" role="tablist" >
         <li style="height:80px"></li>
         <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">
+            <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" 
+            role="tab" aria-controls="pills-home" aria-selected="true" @click="tab('recorded')">
                 <span>信息</span><span>录入</span>
             </a>
         </li>
@@ -27,6 +28,12 @@ export default {
   data(){
       return{}
   },
+  methods:{
+      tab(val){
+          let vm=this;
+          vm.$events.emit('tab',val);          
+      }
+  },
   components:{
   }
 }
@@ -36,6 +43,7 @@ export default {
 #sidebar{
     top:0;
     left:0;
+    
 }
 ul{
     width:200px;

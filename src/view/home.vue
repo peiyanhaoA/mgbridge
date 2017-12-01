@@ -2,7 +2,7 @@
   <div id="home" class="h-100">
     <div id="allmap"></div>
     <my-sidebar></my-sidebar>
-    <recorded ref="recorded"></recorded>
+    <component :is="tab"></component>
   </div>
 </template>
 <script>
@@ -10,6 +10,7 @@
     import Highcharts from 'highcharts';
     import mySidebar from '../components/sidebar';
     import recorded from '../components/recorded';
+    import eventHanding from '../components/event-handing.vue'
 
 	// 添加环形遮罩层
 	function createRingOverlay (corver, map){
@@ -66,11 +67,11 @@
 	
 	// 山水园社区楼号和单元
 	function creatCorver (building, map, that){
-    building.forEach(function(e) {
-        var point = new BMap.Point(e.lng, e.lat)
-        creatPie(point , that , e.text, map);
-    });
-  }
+        building.forEach(function(e) {
+            var point = new BMap.Point(e.lng, e.lat)
+            creatPie(point , that , e.text, map);
+        });
+    }
 
   // 添加覆盖物
 
@@ -149,6 +150,7 @@
 export default {
   data(){
     return {
+        tab:''
 
     }
   },
@@ -159,26 +161,31 @@ export default {
     map.setCurrentCity("南京");
     axios.get('../../index.json')
         .then(function (res) {
-				map.addEventListener('tilesloaded',function(){
-          map.enableScrollWheelZoom(true);
-          map.setMinZoom(15);
-					map.clearOverlays();
-					createRingOverlay(res.data.ringcover, map);
-					if(map.getZoom() < 18){
-						createCommunity(res.data.community, res.data.allcommunity, map);
-					}
-					if(map.getZoom() >= 18){
-						creatCorver(res.data.building, map, vm);
-					}
-				})
-			})
-      .catch(function (error) {
+                map.addEventListener('tilesloaded',function(){
+            map.enableScrollWheelZoom(true);
+            map.setMinZoom(15);
+                    map.clearOverlays();
+                    createRingOverlay(res.data.ringcover, map);
+                    if(map.getZoom() < 18){
+                        createCommunity(res.data.community, res.data.allcommunity, map);
+                    }
+                    if(map.getZoom() >= 18){
+                        creatCorver(res.data.building, map, vm);
+                    }
+                })
+            })
+        .catch(function (error) {
         console.log(error);
-      });
+    });
+
+    vm.$events.on('tab',function(val){
+        vm.tab=val;
+    });
   },
   components:{
     mySidebar,
-    recorded
+    recorded,
+    eventHanding
   }
   
 }
@@ -187,6 +194,13 @@ export default {
 #allmap{
   width: 100%;
   height: 100%;
+}
+.content-right{
+   
+    top: 0;    
+    left:200px;
+    width:calc(100% - 200px);
+    background-color:rgba(0,0,0,.3);
 }
 </style>
 
