@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div id="login_d" >
       <div class="card position-absolute" id="info">
           <h3><b>流动人口管理系统</b></h3>
@@ -20,17 +19,19 @@
           </div>
       </div>
     </div>
-	</div>
 </template>
 <script>
 export default {
   data () {
     return {
+      
     }
   },
   methods:{
     login(){
-      this.$router.push('/home')
+       this.$router.replace({
+        path: '/home'
+    });
     }
   }
 }
@@ -39,8 +40,13 @@ export default {
 #login_d{
 	width: 100%;
 	height: 100%;
-  background:url('/static/nanjing.jpg') no-repeat;
+  background: url('/static/nanjing.jpg') no-repeat;
   background-size: 100% 100%;
+}
+img{
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 #info{
 	width: 430px;

@@ -554,20 +554,15 @@
 </template>
 <script>
 import axios from 'axios';
+import async from 'async';
 export default {
   name:'recorded',
   data(){
     return{
         tenantDisp:false,//租客信息录入界面
         roomInfo:{
-            zone:'025',//
-            district:'06',//栖霞区
-            subdistrict:'01',//迈皋桥
-            community:'04',//山水园
             building:'',
-            unit:'01',
-            roomNumber:'',
-            bdType:'栋'
+            roomNumber:''
         },
         ownerInfo:{
             present:'',
@@ -662,7 +657,8 @@ export default {
 
         },
         renterArr:[],
-        src:""
+        src:"",
+        infos:{}
     }
   },
   methods:{
@@ -726,19 +722,39 @@ export default {
           this.$events.emit('tab','');
       },
       saveAll(){
-          let vm=this;
-          if(vm.roomInfo.building=="" || vm.roomInfo.roomNumber==""){
-              alert("房屋信息不完整");
-              return;
-          }
-          axios.post('/roomRecorded',roomInfo)
-          .then(function(){
+        let vm=this;
+        if(vm.roomInfo.building == "" || vm.roomInfo.building == null || 
+        vm.roomInfo.roomNumber == "" || vm.roomInfo.roomNumber == null){
+            alert("房屋信息不完整！");
+            return;
+        }
+        if(vm.renterInfo.ownerName == "" || vm.renterInfo.ownerName == null ||
+        vm.renterInfo.personalid == "" || vm.renterInfo.personalid == null){
+            alert("房客信息不完整！");
+            return;
+        } 
+        async.waterfall([
+            function(cb){
+                axios.post('/api/getAll',vm.roomInfo)
+                .then(function(data){           
+                    data.data.owner=JSON.parse(data.data.owner);
+                    data.data.renter=JSON.parse(data.data.renter);
 
-          })
-          .catch(function(err){
-              console.log(err);
-          })
-          
+                    data.data.owner.push(vm.ownerInfo);
+                    data.data.renter.concat(vm.renterArr);
+                    cb(null,data.data); 
+                })
+                .catch(function(err){
+                    cb(err);
+                });     
+            },
+            function(infos,cb){
+                axios.post('/api/saveAll',infos)
+                .then(function(){cb(null)})
+                .catch(function(err){console.log(err);})
+            }
+        ])       
+             
 
       },
       cancelRenter(){
@@ -746,14 +762,17 @@ export default {
           this.initRenter();
       },
       saveRenter(){
-          let vm=this;
-          if(vm.renterInfo.ownerName == "" || vm.renterInfo.ownerName == null ||
-           vm.renterInfo.personalid == "" || vm.renterInfo.personalid == null){
-               alert("房客信息不完整！");
-              return;
-          }
-          vm.renterArr.push(vm.renterInfo);
-          vm.initRenter();
+        let vm=this;
+        
+        if(vm.renterInfo.tenantName == "" || vm.renterInfo.tenantName == null || 
+        vm.renterInfo.personalid == "" || vm.renterInfo.personalid == null){
+            alert('房客基本信息不完整！');
+            return;
+        }else{
+            vm.renterArr.push(vm.renterInfo);
+        }
+        vm.tenantDisp=false;
+        vm.initRenter();
       },
       delRenter(){//删除租客
 
@@ -761,13 +780,13 @@ export default {
 
   },
   mounted(){
-      axios.post('/api/room')
-      .then(function(res){
-          console.log(res);
-      })
-      .catch(function(err){
-          console.log(err);
-      })
+    //   axios.post('/api/room')
+    //   .then(function(res){
+    //       console.log(res);
+    //   })
+    //   .catch(function(err){
+    //       console.log(err);
+    //   })
   },
   beforeDestroy(){
        

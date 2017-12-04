@@ -1,8 +1,11 @@
 <template>
   <div id="home" class="h-100">
     <div id="allmap"></div>
-    <my-sidebar></my-sidebar>
-    <component :is="tab"></component>
+    <my-sidebar></my-sidebar 
+    <transition name="slide">
+        <component :is="tab"></component>
+    </transition>
+    
   </div>
 </template>
 <script>
