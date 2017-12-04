@@ -730,7 +730,7 @@ export default {
         }
         if(vm.renterInfo.ownerName == "" || vm.renterInfo.ownerName == null ||
         vm.renterInfo.personalid == "" || vm.renterInfo.personalid == null){
-            alert("房客信息不完整！");
+            alert("房主信息不完整！");
             return;
         } 
         async.waterfall([
