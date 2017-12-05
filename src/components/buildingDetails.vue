@@ -29,7 +29,7 @@ export default {
             this.$store.commit('changebudingDetials')
         },
         showPersonInfo(e){
-            console.log(e.target.innerText)
+            this.$events.emit('testEvent', e.target.innerText);
         }
     }
 }
