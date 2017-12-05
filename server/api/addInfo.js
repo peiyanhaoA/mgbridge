@@ -54,11 +54,7 @@ router.post('/getAll', function(req, res) {
     res.send({ 'success': 1 })
 });
 
-<<<<<<< HEAD
-router.post('/saveAll', function(req, res) {
-    console.log(req.body);
-});
-=======
+
 
 
 router.post('/profile', upload.single('file'), function(req, res, next) {
@@ -67,7 +63,6 @@ router.post('/profile', upload.single('file'), function(req, res, next) {
     res.send(URL);
 })
 
->>>>>>> 8bda101e07cee70b9c09aecaa6558d87e0e90ad4
 
 router.post('/obtain',function(req,res){
     let building = req.body.building;
