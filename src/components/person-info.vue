@@ -1,12 +1,12 @@
 <template>
    <div id="bdetails" class="position-absolute">
         <div class="card position-absolute" id="listtable">
-            <table class="table">
+            <table class="table table-bordered" @dblclick="edit">
                 <tbody>
                     <tr>
-                        <td></td>
+                        <td v-text="this.$store.state.roomNum" :style="{'background-color': this.$store.state.bgColor}"></td>
                         <td>房主姓名</td>
-                        <td>Otto</td>
+                        <td></td>
                         <td>联系电话</td>
                         <td>Otto</td>
                     </tr>
@@ -27,7 +27,11 @@
                         <td></td>
                     </tr>
                 </tbody>
-             </table>
+            </table>
+            <div id="btns" class="d-flex justify-content-end">
+                <button style="margin-right:40px;background-color:blueviolet; color: white;" @click="goDetails" type="button" class="btn btn-sm">返回</button>
+            </div>
+
         </div>
   </div>
 </template>
@@ -38,8 +42,13 @@ export default {
 
         }
     },
-    mounted () {
-        this.$events.on('testEvent', eventData => console.log(eventData));
+    methods: {
+        goDetails(){
+            this.$store.commit('changebudingDetials',{roomNum: ''})
+        },
+        edit(ev){
+            console.log(ev)
+        }
     }
 }
 </script>
@@ -51,13 +60,19 @@ export default {
     top: 0;
     background-color: rgba(0, 0, 0, 0.3);
 }
-#listsCard{
+#listtable{
     width: 600px;
-    height: 100%;
+    height: 400px;
     margin: auto;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
+}
+#btns{
+    margin-top: 10px;
+}
+td{
+    text-align: center;
 }
 </style>

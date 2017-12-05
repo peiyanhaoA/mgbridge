@@ -1,22 +1,26 @@
 <template>
   <div id="home" class="h-100">
     <div id="allmap"></div>
-    <my-sidebar></my-sidebar 
-    <transition name="slide">
-        <component :is="tab"></component>
-    </transition>
-    <building-details v-if="this.$store.state.budingDetials"></building-details>
+    <div id="sidebar" class="h-100 d-inline-block position-absolute">
+        <ul class="nav nav-pills bg-dark h-100" id="pills-tab" role="tablist" >
+            <li style="height:80px"></li>
+            <router-link :to="{name: 'record'}" tag="li" active-class="active">信息录入</router-link>
+            <router-link :to="{name: 'eventhand'}" tag="li" active-class="active">事件处理</router-link>
+            <router-link :to="{name: 'usermanage'}" tag="li" active-class="active">用户管理</router-link>
+            <li class="fold position-absolute fixed-bottom text-white border-top border-secondary">折叠</li>
+        </ul>
+    </div>
+   <router-view></router-view>
+    <!-- <building-details v-if="this.$store.state.budingDetials"></building-details> -->
+    <!-- <person-info v-if="this.$store.state.personInfo"></person-info> -->
   </div>
 </template>
 <script>
     import $ from 'jquery'
     import axios from 'axios';
     import Highcharts from 'highcharts';
-    import mySidebar from '../components/sidebar';
-    import recorded from '../components/recorded';
-    import eventHanding from '../components/event-handing.vue';
     import buildingDetails from '../components/buildingDetails.vue';
-    import { mapMutations } from 'vuex';
+    import personInfo from '../components/person-info.vue'
 	// 添加环形遮罩层
 	function createRingOverlay (corver, map){
         // 添加环形遮罩层
@@ -168,18 +172,19 @@ export default {
     map.setCurrentCity("南京");
     axios.get('../../index.json')
         .then(function (res) {
-                map.addEventListener('tilesloaded',function(){
-            map.enableScrollWheelZoom(true);
-            map.setMinZoom(15);
-                    map.clearOverlays();
-                    createRingOverlay(res.data.ringcover, map);
-                    if(map.getZoom() < 18){
-                        createCommunity(res.data.community, res.data.allcommunity, map);
-                    }
-                    if(map.getZoom() >= 18){
-                        creatCorver(res.data.building, map, vm);
-                    }
-                })
+            
+            map.addEventListener('tilesloaded',function(){
+                map.enableScrollWheelZoom(true);
+                map.setMinZoom(15);
+                map.clearOverlays();
+                createRingOverlay(res.data.ringcover, map);
+                if(map.getZoom() < 18){
+                    createCommunity(res.data.community, res.data.allcommunity, map);
+                }
+                if(map.getZoom() >= 18){
+                    creatCorver(res.data.building, map, vm);
+                }
+            })
             })
         .catch(function (error) {
         console.log(error);
@@ -190,10 +195,8 @@ export default {
     });
   },
   components:{
-    mySidebar,
-    recorded,
-    eventHanding,
-    buildingDetails
+    buildingDetails,
+    personInfo
   }
   
 }
@@ -210,5 +213,32 @@ export default {
     width:calc(100% - 200px);
     background-color:rgba(0,0,0,.3);
 }
+#sidebar{
+    top:0;
+    left:0;
+    
+}
+ul{
+    width:200px;
+}
+ul.nav{
+    display:block;
+}
+ul li{
+    width:100%;
+    height: 60px;
+    color: white;
+    text-align:center;
+    line-height: 60px;
+    cursor: pointer;
+}
+#corver{
+    left: 200px;
+    top: 0;
+}
+.active{
+    background-color: red;
+}
+
 </style>
 
