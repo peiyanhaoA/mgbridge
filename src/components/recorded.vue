@@ -4,8 +4,9 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="card h-100" style="overflow:auto;width:600px;margin:0 auto;">
-        <div class="card-body text-dark">
-            <form >
+        <div class="card-body text-dark">        
+            
+            <form class="my-2">
                 <h6>房屋信息录入</h6>
                 <div class="row my-3">                    
                     <div class="col-sm-4">
@@ -301,6 +302,7 @@ export default {
         },
         ownerInfo:{
             present:1,
+            roomNumber:'',
             ownerName:'',
             sex:'',
             nationality:'',
@@ -370,11 +372,15 @@ export default {
         }
         
     },
+    import_excel(){
+
+    },
     tab(){
         this.$events.emit('tab','');
     },
     saveAll(){
         let vm=this;
+        vm.ownerInfo.roomNumber=vm.roomInfo.roomNumber;
         if(vm.roomInfo.building == "" || vm.roomInfo.building == null || 
         vm.roomInfo.roomNumber == "" || vm.roomInfo.roomNumber == null){
             alert("房屋信息不完整！");
@@ -408,6 +414,7 @@ export default {
   mounted(){
       let vm=this;
       vm.$events.on('renterInfo',function(val){
+          val.roomNumber=vm.roomInfo.roomNumber;
           vm.renterArr.push(val);
       })
   },
