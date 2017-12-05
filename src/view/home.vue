@@ -5,16 +5,18 @@
     <transition name="slide">
         <component :is="tab"></component>
     </transition>
-    
+    <building-details v-if="this.$store.state.budingDetials"></building-details>
   </div>
 </template>
 <script>
+    import $ from 'jquery'
     import axios from 'axios';
     import Highcharts from 'highcharts';
     import mySidebar from '../components/sidebar';
     import recorded from '../components/recorded';
-    import eventHanding from '../components/event-handing.vue'
-
+    import eventHanding from '../components/event-handing.vue';
+    import buildingDetails from '../components/buildingDetails.vue';
+    import { mapMutations } from 'vuex';
 	// 添加环形遮罩层
 	function createRingOverlay (corver, map){
         // 添加环形遮罩层
@@ -64,6 +66,10 @@
                 backgroundColor: "rgba(0,0,0,0)",
                 fontWeight: "800"
             });
+            label.addEventListener('click',function(){
+                map.setCenter(point);
+                map.setZoom(18);
+            })
             map.addOverlay(label);
         })
 	}
@@ -132,9 +138,7 @@
         })
 
         div.addEventListener('click',function(){
-            that.$store.commit('changeVal',{text: text});
-            that.$store.commit('getData');
-            that.$store.commit('changeWidth')
+            that.$store.commit('getInfo', {text: text});
         })
 
         this._div = div;
@@ -188,7 +192,8 @@ export default {
   components:{
     mySidebar,
     recorded,
-    eventHanding
+    eventHanding,
+    buildingDetails
   }
   
 }

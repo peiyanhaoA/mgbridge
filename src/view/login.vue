@@ -29,6 +29,7 @@ export default {
   },
   methods:{
     login(){
+      
        this.$router.replace({
         path: '/home'
     });
