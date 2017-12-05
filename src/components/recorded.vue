@@ -371,7 +371,7 @@ export default {
         
     },
     tab(){
-        this.$events.emit('tab','');
+        this.$router.push('/home')
     },
     saveAll(){
         let vm=this;

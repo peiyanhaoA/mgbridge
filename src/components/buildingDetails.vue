@@ -26,10 +26,14 @@ export default {
     },
     methods:{
         goBack(){
-            this.$store.commit('changebudingDetials')
+            // this.$store.commit('closebudingDetials')
+            this.$events.emit('tab','buildingDetails');
+
         },
         showPersonInfo(e){
-            this.$events.emit('testEvent', e.target.innerText);
+            this.$events.emit('tab','personInfo');
+            
+            this.$store.commit('changebudingDetials', {roomNum: e.target.innerText});
         }
     }
 }

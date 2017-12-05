@@ -11,7 +11,9 @@ export default new Vuex.Store({
         ownerInfo: [],
         renterInfo: [],
         budingDetials: false,
-        bgColor: ''
+        bgColor: '',
+        personInfo: false,
+        roomNum: ''
     },
     mutations:{
         getInfo(state, pay){
@@ -35,6 +37,7 @@ export default new Vuex.Store({
                     });
                    
                     state.renterInfo.forEach(function(e){
+                        // console.log(e.length)
                         if(e.length == 2){
                             state.bgColor = 'yellow';
                         }
@@ -43,12 +46,18 @@ export default new Vuex.Store({
                 }
             });
         },
-        changebudingDetials(state){
+        changebudingDetials(state, palody){
+            state.roomNum = palody.roomNum;
             if(state.budingDetials){
                 state.budingDetials = false;
+                state.personInfo = true;
             }else{
                 state.budingDetials = true;
+                state.personInfo = false;
             }
+        },
+        closebudingDetials(state){
+            state.budingDetials = false;
         }
     },
     actions:{
