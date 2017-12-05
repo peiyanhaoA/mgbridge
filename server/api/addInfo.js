@@ -57,7 +57,6 @@ router.post('/getAll', function(req, res) {
 
 
 router.post('/profile', upload.single('file'), function(req, res, next) {
-    // console.log(req.file);
     let URL = 'http://localhost:8080/profile/' + req.file.originalname;
     res.send(URL);
 })
