@@ -12,6 +12,7 @@
     "dependencies": {
         "async": "^2.6.0",
         "bootstrap-material-design": "^4.0.0-beta.4",
+        "element-ui": "^2.0.7",
         "express": "^4.16.2",
         "fileupload": "^1.0.0",
         "highcharts": "^6.0.3",

@@ -1,0 +1,82 @@
+[{
+        "username": "王广辉",
+        "sex": "男",
+        "position": "书记",
+        "gridManagement": "一级网格总负责",
+        "work": "负责社区全面工作",
+        "voluteerTeam": "",
+        "working": true
+    },
+    {
+        "username": "丁晔",
+        "sex": "男",
+        "position": "主任/副书记",
+        "gridManagement": "一级网格负责人",
+        "work": "协助书记抓社区全面工作",
+        "voluteerTeam": "",
+        "working": true
+    },
+    {
+        "username": "范甜",
+        "sex": "女",
+        "position": "副主任",
+        "gridManagement": "二级网格负责人/一园1-3栋含门面房",
+        "work": "党建团建、财务、物业、武装统战、内务管理（对口分工：基层党建、物业管理）",
+        "voluteerTeam": "山水一家人、山水腰鼓队",
+        "working": true
+    },
+    {
+        "username": "王捷",
+        "sex": "女",
+        "position": "大学生/社工",
+        "gridManagement": "二级网格负责人/一园4-7栋含门面房",
+        "work": "社建、宣传、会计经济、综治维稳（平安果志愿者）、文体（对口分工：文明创建、社会稳定）",
+        "voluteerTeam": "平安果志愿者、瑜伽班",
+        "working": true
+    },
+    {
+        "username": "周相宜",
+        "sex": "女",
+        "position": "大学生/社工",
+        "gridManagement": "二级网格负责人/一园8-10栋含门面房",
+        "work": "人口医疗卫生、民政含残联、妇联、关工委（对口分工：社区事物）",
+        "voluteerTeam": "爱德星级义工、印度舞团",
+        "working": true
+    },
+    {
+        "username": "王瑶",
+        "sex": "女",
+        "position": "大学生/社工",
+        "gridManagement": "二级网格负责人/一园11-14栋含门面房",
+        "work": "12345诉求办理、民政中老龄低保、城管、社会及自治组织（对口分工：城市治理、诉求办理）",
+        "voluteerTeam": "山水合唱团、戏友杨剧团、三长六员队伍",
+        "working": true
+    },
+    {
+        "username": "白雪庆",
+        "sex": "女",
+        "position": "大学生/社工",
+        "gridManagement": "二级网格负责人/一园15-18栋含门面房",
+        "work": "企业服务、工会、民监会（项目建设重大采购）、档案、周月总结（对口分工：企业服务）",
+        "voluteerTeam": "民族舞蹈",
+        "working": true
+    },
+    {
+        "username": "李梦成",
+        "sex": "女",
+        "position": "大学生/社工",
+        "gridManagement": "二级网格负责人/尖山路、薪加德、创业园、十里长沟",
+        "work": "安全生产、环境保护、食品安全（对口分工：安全生产、环境保护）",
+        "voluteerTeam": "绿使者、快乐舞蹈队",
+        "working": true
+    },
+    {
+        "username": "励双兰",
+        "sex": "女",
+        "position": "劳保员",
+        "gridManagement": "",
+        "work": "对口分工：劳动保障",
+        "voluteerTeam": "",
+        "working": true
+    }
+]

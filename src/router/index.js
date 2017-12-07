@@ -8,43 +8,36 @@ import userManage from '../components/user-management.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/home',
-      name: 'Home' ,
-      component: Home,
-      children:[
-        {
-          path: '/home',
-          name: 'Home' ,
-          component: Home
+    routes: [{
+            path: '/',
+            name: 'Login',
+            component: Login
         },
         {
-          path: 'record',
-          name: 'record',
-          component: recorded
+            path: '/login',
+            name: 'login',
+            component: Login
         },
         {
-          path: 'eventhand',
-          name: 'eventhand',
-          component: eventHanding 
-        },
-        {
-          path: 'usermanage',
-          name: 'usermanage',
-          component: userManage
+            path: '/home',
+            name: 'Home',
+            component: Home,
+            children: [{
+                    path: 'record',
+                    name: 'record',
+                    component: recorded
+                },
+                {
+                    path: 'eventhand',
+                    name: 'eventhand',
+                    component: eventHanding
+                },
+                {
+                    path: 'usermanage',
+                    name: 'usermanage',
+                    component: userManage
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 })

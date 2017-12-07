@@ -6,7 +6,7 @@
     <div class="card h-100" style="overflow:auto;width:600px;margin:0 auto;">
         <div class="card-body text-dark">        
             
-            <form class="my-2">
+            <form >
                 <h6>房屋信息录入</h6>
                 <div class="row my-3">                    
                     <div class="col-sm-4">
@@ -44,6 +44,18 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">联系电话</label>
                         <input class="recordForm"  type="text" v-model="ownerInfo.phoneNumber">                        
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="recordLabel">房屋状态</label>
+                        <select class="recordForm" v-model="ownerInfo.roomStatus">
+                            <option selected value="" disabled>请选择</option>
+                            <option value="1">自住</option>
+                            <option value="2">出租</option>
+                            <option value="3">未拿房</option>
+                            <option value="4">装修中</option>
+                            <option value="5">房主失联中</option>
+                            <option value="6" disabled>门面房</option>
+                        </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">户籍标志</label>
@@ -277,12 +289,44 @@
                     </div>
                 </div>
                 <div class="row my-4">
-                    <div class="col-12 text-center">
+                    <div class="col-6 ">
                         <button type="button" class="btn btn-outline-secondary" @click="tab">取消</button>
                         <button type="button" class="btn btn-outline-danger mx-4" @click="saveAll">确定</button>
                     </div>
                 </div>
             </form> 
+            <hr>
+            <button type="button" class="btn btn-outline-success" @click="batchDisp=true">批量导入</button>
+            <form class="my-4" v-if="batchDisp">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-file" style="z-index:0">
+                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="import_excel1($event)" required />
+                            <span class="custom-file-control">批量导入房主信息</span>                            
+                        </label>  
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-file" style="z-index:0">
+                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="import_excel($event)" required />
+                            <span class="custom-file-control">批量导入房客信息</span>                            
+                        </label>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span>{{excel1}}</span>
+                    </div>
+                    <div class="col-sm-4">                        
+                        <span>{{excel2}}</span>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-secondary" @click="tab">取消</button>
+                        <button type="button" class="btn btn-outline-danger mx-4" @click="importSave">确定</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <recorded-renter></recorded-renter>
@@ -291,11 +335,12 @@
 <script>
 import axios from 'axios';
 import async from 'async';
-import recordedRenter from './recorded-renter'
+import recordedRenter from './recorded-renter';
 export default {
   name:'recorded',
   data(){
     return{
+        batchDisp:false,
         roomInfo:{
             building:'',
             roomNumber:''
@@ -308,6 +353,7 @@ export default {
             nationality:'',
             residence:'',
             personalid:'',
+            roomStatus:'',
             phoneNumber:'',
             merriageStatus:'',
             partyMember:'',
@@ -348,10 +394,12 @@ export default {
         src:"",
         infos:{},
         fileName:'',
+        excel1:'',
+        excel2:''
     }
   },
   methods:{
-    getFile(el){
+    getFile(el){//保存文件
         var vm=this;
         var file=el.target;
         var formData=new FormData();
@@ -372,9 +420,20 @@ export default {
         }
         
     },
-    import_excel(){
-
+    getFile(file){//导入表格，批量导入房主和房客
+        var vm=this;
+        var formData=new FormData();
+        formData.append('file',file.files[0]);
+        var src=file.files[0].name,
+            formart=src.split(".")[1];
+        if(formart=="xlsx"||formart=="xls"){
+           return formData;
+        }else{
+            alert('文件不符合格式！');
+            return '';
+        }
     },
+    importSave(){},
     tab(){
         this.$router.push('/home')
     },

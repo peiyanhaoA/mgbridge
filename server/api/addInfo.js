@@ -14,7 +14,7 @@ const upload = multer({
 
 //
 
-//增加房主信息
+//增加房主及房客信息
 router.post('/getAll', function(req, res) {
     let room = req.body.roomInfo;
     let owner = req.body.ownerInfo;
@@ -52,10 +52,19 @@ router.post('/getAll', function(req, res) {
     res.send({ 'success': 1 })
 });
 
+//获取管理员信息
+router.post('/getManager', function(req, res) {
+    fs.readFile('./static/manage/manager.json', function(err, data) {
+        if (err) console.log(err);
+        // console.log(data);
+        res.send(data.toString());
+    })
+})
 
 
-
+//保存文件
 router.post('/profile', upload.single('file'), function(req, res, next) {
+    console.log(req.file);
     let URL = 'http://localhost:8080/profile/' + req.file.originalname;
     res.send(URL);
 })
