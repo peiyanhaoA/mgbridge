@@ -1,4 +1,4 @@
-import { XLSX } from './xlsx.full.min.js';
+import XLSX from 'xlsx';
 var wb; //读取完成的数据
 var rABS = false; //是否将文件读取为二进制字符串
 
@@ -19,7 +19,7 @@ function importfile(obj) { //导入
                 type: 'binary'
             });
         }
-        return XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+        return JSON.stringify(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
     };
     if (rABS) {
         reader.readAsArrayBuffer(f);

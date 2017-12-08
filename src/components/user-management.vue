@@ -45,13 +45,13 @@
             <el-table-column label="职务" prop="position"></el-table-column>
             <el-table-column label="操作" style="width:30%">
                 <template slot-scope="scope">
-                    <el-button size="mini" >
-                        <span v-if="scope.row.working" @click="handleEdit(scope.$index, scope.row)">编辑</span>
-                        <span v-else @click="save(scope.$index, scope.row)">保存</span>
+                    <el-button size="mini" v-if="scope.row.working" @click="handleEdit(scope.$index, scope.row)">
+                        <span  >编辑</span>
                     </el-button>
-                    <el-button
-                    size="mini"
-                    type="danger" @click.native.prevent="handleDel(scope.$index,managers)"
+                    <el-button size="mini" v-else @click="save(scope.$index, scope.row)">
+                        <span>保存</span>
+                    </el-button>
+                    <el-button size="mini" type="danger" @click.native.prevent="handleDel(scope.$index,managers)"
                    >删除</el-button>
                 </template>
             </el-table-column>

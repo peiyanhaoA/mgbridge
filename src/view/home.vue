@@ -7,11 +7,11 @@
             <router-link :to="{name: 'record'}"  tag="li" class="position-relative" active-class="active">信息录入</router-link>
             <router-link :to="{name: 'eventhand'}" tag="li" active-class="active">事件处理</router-link>
             <router-link :to="{name: 'usermanage'}" tag="li" active-class="active">用户管理</router-link>
-            <li class="fold position-absolute fixed-bottom text-white border-top border-secondary">折叠</li>
+            <li class="fold position-absolute fixed-bottom text-white border-top border-secondary text-info" @click="exit">退 出</li>
         </ul>
     </div>
     <transition name="slide">
-        <router-view></router-view>    
+        <router-view keep-alive></router-view>    
     </transition>
     <!-- <building-details v-if="this.$store.state.budingDetials"></building-details> -->
     <!-- <person-info v-if="this.$store.state.personInfo"></person-info> -->
@@ -166,6 +166,11 @@ export default {
         tab:''
 
     }
+  },
+  methods:{
+      exit(){
+          this.$router.push({name:'Login'})
+      }
   },
   mounted(){
     let vm = this;
