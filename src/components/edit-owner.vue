@@ -20,7 +20,7 @@
             <el-input size="mini" style="width:150px;" v-model="ownerInf.roomStatus"></el-input>
         </el-form-item>
         <el-form-item label="性别：">
-            <el-select size="mini" style="width:150px;" v-model="ownerInf.sex" placeholder="请选择">
+            <el-select size="mini" style="width:150px;" v-model="ownerInf.sex" >
               <el-option label="男" value="0"></el-option>
               <el-option label="女" value="1"></el-option>
             </el-select>
@@ -183,7 +183,51 @@
 export default {
   data(){
     return {
-      ownerInf: {}
+      ownerInf: {
+            present:1,
+            roomNumber:'',
+            ownerName:'',
+            sex:'',
+            nationality:'',
+            residence:'',
+            personalid:'',
+            roomStatus:'',
+            phoneNumber:'',
+            merriageStatus:'',
+            partyMember:'',
+            volunteer:'',
+            employment:'',
+            educationDegree:'',
+            resident:'',
+            oldman:'',
+            oldmanAge:'',
+            singleOld:'',
+            minLivings:'',
+            disability:'',
+            seriousHealth:'',
+            specialCare:'',
+            serviceMan:'',
+            retirement:'',
+            released:'',
+            corrected:'',
+            psychosis:'',
+            monitoring:'',
+
+            resitdenceAdd:'',
+            religious:'',
+            militaryDetail:'',
+            employer:'',
+            occupation:'',
+            employerAdd:'',
+            employerPhone:'',
+            profession:'',
+            speciality:'',
+            height:'',
+            weight:'',
+            bloodType:'',           
+            documents:''
+
+        }
     }
   },
   methods:{
