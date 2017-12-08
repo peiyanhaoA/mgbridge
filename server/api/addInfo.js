@@ -14,11 +14,9 @@ const upload = multer({
 
 //
 
-//增加房主信息
+//增加房主及房客信息
 router.post('/getAll', function(req, res) {
     let room = req.body.roomInfo;
-    console.log(room);
-
     let owner = req.body.ownerInfo;
     let renter = req.body.renterArr;
     let building = room.building;
@@ -54,16 +52,25 @@ router.post('/getAll', function(req, res) {
     res.send({ 'success': 1 })
 });
 
+//获取管理员信息
+router.post('/getManager', function(req, res) {
+    fs.readFile('./static/manage/manager.json', function(err, data) {
+        if (err) console.log(err);
+        // console.log(data);
+        res.send(data.toString());
+    })
+})
 
 
-
+//保存文件
 router.post('/profile', upload.single('file'), function(req, res, next) {
-    // console.log(req.file);
+    console.log(req.file);
     let URL = 'http://localhost:8080/profile/' + req.file.originalname;
     res.send(URL);
 })
 
 
+<<<<<<< HEAD
 router.post('/obtain',function(req,res){
     let info = [];
     let building = fs.readdirSync('./static/shanshuiyuan');
@@ -122,9 +129,68 @@ router.post('/getOwner',function(req,res){
                 renterInfo.push(JSON.parse(owner.toString()));
                 fs.close(fd)
             })
+=======
+router.post('/obtain', function(req, res) {
+    let building = req.body.building;
+    let floorurl = './static/shanshuiyuan/' + building;
+    let rows = [];
+    let col = [];
+    let roomInfo = [];
+    let ownerInfo = [];
+    let renterInfo = [];
+    fs.readdir(floorurl, function(err, floorFiles) {
+        console.log(typeof floorFiles);
+        floorFiles.forEach(function(e) {
+            col.push(e)
+            let roomsUrl = floorurl + '/' + e;
+            fs.readdir(roomsUrl, function(err, roomsFiles) { //房间
+                roomsFiles.forEach(function(el) {
+                    let roomUrl = roomsUrl + '/' + el;
+                    fs.readdir(roomUrl, function(err, roomFiles) { // 每个房间
+                        roomFiles.forEach(function(ele) {
+                            if (ele == 'owner.json') {
+                                let ownerInfoUrl = roomUrl + '/' + ele;
+                                fs.open(ownerInfoUrl, 'r', function(err, fd) {
+                                    fs.readFile(ownerInfoUrl, function(err, data) {
+                                        ownerInfo.push(data.toString());
+                                        fs.close(fd);
+                                    });
+                                })
+
+                            } else if (ele == 'renter.json') {
+                                let renterInfoUrl = roomUrl + '/' + ele;
+                                fs.open(renterInfoUrl, 'r', function(err, fd) {
+                                    fs.readFile(renterInfoUrl, function(err, data) {
+                                        renterInfo.push(data.toString());
+                                        fs.close(fd);
+                                    });
+                                })
+
+                            } else if (ele == 'room.json') {
+                                let roomInfoUrl = roomUrl + '/' + ele;
+                                fs.open(roomInfoUrl, 'r', function(err, fd) {
+                                    fs.readFile(roomInfoUrl, function(err, data) {
+                                        roomInfo.push(data.toString());
+                                        fs.close(fd);
+                                    });
+                                })
+                            }
+                        })
+
+                    })
+
+                })
+            })
+        })
+        let colUrl = floorurl + '/' + floorFiles[0];
+        fs.readdir(colUrl, function(err, row) {
+            rows = row;
+            // res.send(rows)
+>>>>>>> 4bcf4b1f316ce9397a49e3679219874d961ee840
         })
 
     })
+<<<<<<< HEAD
     setTimeout(function(){
         let obj = {
             rows: row,
@@ -161,6 +227,18 @@ router.post('/writeRenterInfo',function(req, res){
     writerStream.on('error', function(err){
        console.log(err.stack);
     });
+=======
+    setTimeout(function() {
+        let infoObj = {
+            cols: col,
+            rows: rows,
+            roomInfo: roomInfo,
+            ownerInfo: ownerInfo,
+            renterInfo: renterInfo
+        };
+        res.send(infoObj);
+    }, 300)
+>>>>>>> 4bcf4b1f316ce9397a49e3679219874d961ee840
 })
 
 module.exports = router;

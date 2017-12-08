@@ -1,16 +1,18 @@
 <template>
   <div id="home" class="h-100">
-    <div id="allmap"></div>
+    <div id="allmap" ></div>
     <div id="sidebar" class="h-100 d-inline-block position-absolute">
         <ul class="nav nav-pills bg-dark h-100" id="pills-tab" role="tablist" >
             <li style="height:80px"></li>
-            <router-link :to="{name: 'record'}" tag="li" active-class="active">信息录入</router-link>
+            <router-link :to="{name: 'record'}"  tag="li" class="position-relative" active-class="active">信息录入</router-link>
             <router-link :to="{name: 'eventhand'}" tag="li" active-class="active">事件处理</router-link>
             <router-link :to="{name: 'usermanage'}" tag="li" active-class="active">用户管理</router-link>
-            <li class="fold position-absolute fixed-bottom text-white border-top border-secondary">折叠</li>
+            <li class="fold position-absolute fixed-bottom text-white border-top border-secondary text-info" @click="exit">退 出</li>
         </ul>
     </div>
-   <router-view></router-view>
+    <transition name="slide">
+        <router-view keep-alive></router-view>    
+    </transition>
     <!-- <building-details v-if="this.$store.state.budingDetials"></building-details> -->
     <!-- <person-info v-if="this.$store.state.personInfo"></person-info> -->
   </div>
@@ -166,6 +168,11 @@ export default {
 
     }
   },
+  methods:{
+      exit(){
+          this.$router.push({name:'Login'})
+      }
+  },
   mounted(){
     let vm = this;
     let map = new BMap.Map("allmap");
@@ -211,8 +218,7 @@ export default {
 }
 #sidebar{
     top:0;
-    left:0;
-    
+    left:0;    
 }
 ul{
     width:200px;
@@ -233,7 +239,7 @@ ul li{
     top: 0;
 }
 .active{
-    background-color: red;
+    background-color: #2196f3;
 }
 
 </style>

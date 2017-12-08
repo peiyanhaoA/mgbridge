@@ -11,6 +11,7 @@ import editInfo from '../components/edit-info.vue';
 Vue.use(Router)
 
 export default new Router({
+<<<<<<< HEAD
   routes: [
     {
       path: '/',
@@ -31,13 +32,20 @@ export default new Router({
           path: 'record',
           name: 'record',
           component: recorded
+=======
+    routes: [{
+            path: '/',
+            name: 'Login',
+            component: Login
+>>>>>>> 4bcf4b1f316ce9397a49e3679219874d961ee840
         },
         {
-          path: 'eventhand',
-          name: 'eventhand',
-          component: eventHanding 
+            path: '/login',
+            name: 'login',
+            component: Login
         },
         {
+<<<<<<< HEAD
           path: 'usermanage',
           name: 'usermanage',
           component: userManage
@@ -56,8 +64,27 @@ export default new Router({
           path: 'editInfo',
           name: 'editInfo',
           component: editInfo 
+=======
+            path: '/home',
+            name: 'Home',
+            component: Home,
+            children: [{
+                    path: 'record',
+                    name: 'record',
+                    component: recorded
+                },
+                {
+                    path: 'eventhand',
+                    name: 'eventhand',
+                    component: eventHanding
+                },
+                {
+                    path: 'usermanage',
+                    name: 'usermanage',
+                    component: userManage
+                }
+            ]
+>>>>>>> 4bcf4b1f316ce9397a49e3679219874d961ee840
         }
-      ]
-    }
-  ]
+    ]
 })

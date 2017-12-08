@@ -4,7 +4,8 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="card h-100" style="overflow:auto;width:600px;margin:0 auto;">
-        <div class="card-body text-dark">
+        <div class="card-body text-dark">        
+            
             <form >
                 <h6>房屋信息录入</h6>
                 <div class="row my-3">                    
@@ -43,6 +44,18 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">联系电话</label>
                         <input class="recordForm"  type="text" v-model="ownerInfo.phoneNumber">                        
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="recordLabel">房屋状态</label>
+                        <select class="recordForm" v-model="ownerInfo.roomStatus">
+                            <option selected value="" disabled>请选择</option>
+                            <option value="1">自住</option>
+                            <option value="2">出租</option>
+                            <option value="3">未拿房</option>
+                            <option value="4">装修中</option>
+                            <option value="5">房主失联中</option>
+                            <option value="6" disabled>门面房</option>
+                        </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">户籍标志</label>
@@ -276,12 +289,44 @@
                     </div>
                 </div>
                 <div class="row my-4">
-                    <div class="col-12 text-center">
+                    <div class="col-6 ">
                         <button type="button" class="btn btn-outline-secondary" @click="tab">取消</button>
                         <button type="button" class="btn btn-outline-danger mx-4" @click="saveAll">确定</button>
                     </div>
                 </div>
             </form> 
+            <hr>
+            <button type="button" class="btn btn-outline-success" @click="batchDisp=true">批量导入</button>
+            <form class="my-4" v-if="batchDisp">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-file" style="z-index:0">
+                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="getFile($event)" required />
+                            <span class="custom-file-control">批量导入房主信息</span>                            
+                        </label>  
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-file" style="z-index:0">
+                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="import_excel($event)" required />
+                            <span class="custom-file-control">批量导入房客信息</span>                            
+                        </label>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span>{{excel1}}</span>
+                    </div>
+                    <div class="col-sm-4">                        
+                        <span>{{excel2}}</span>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-secondary" @click="tab">取消</button>
+                        <button type="button" class="btn btn-outline-danger mx-4" @click="importSave">确定</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <recorded-renter></recorded-renter>
@@ -290,22 +335,72 @@
 <script>
 import axios from 'axios';
 import async from 'async';
-import recordedRenter from './recorded-renter'
+import recordedRenter from './recorded-renter';
+import XLSX from 'xlsx';
+var wb; //读取完成的数据
+var rABS = false; //是否将文件读取为二进制字符串
+var fileDt = null;
+function importfile(obj) { //导入
+    if (!obj.files || !obj.files[0]) {
+        return;
+    }
+    var f = obj.files[0];
+    var reader = new FileReader();
+    
+    if (rABS) {
+        reader.readAsArrayBuffer(f);
+    } else {
+        reader.readAsBinaryString(f);
+    }
+    return reader.onload = function(e) {
+        var data = e.target.result;        
+        if (rABS) {
+            wb = XLSX.read(btoa(fixdata(data)), { //手动转化
+                type: 'base64'
+            });
+        } else {
+            wb = XLSX.read(data, {
+                type: 'binary'
+            });
+        }
+        var result={};
+        wb.SheetNames.forEach(function(sheetName){
+            var row=XLSX.utils.sheet_to_json(wb.Sheets[sheetName],{header:1});
+            if(row.length) result[sheetName]=row;
+        })
+        // console.log(JSON.stringify(result, 2, 2));
+        fileDt=JSON.parse(JSON.stringify(result, 2, 2))
+        // fileDt = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+        // console.log(fileDt);
+    };
+}
+
+function fixdata(data) { //文件流转BinaryString
+    var o = "",
+        l = 0,
+        w = 10240;
+    for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+    return o;
+}
 export default {
   name:'recorded',
   data(){
     return{
+        batchDisp:false,
         roomInfo:{
             building:'',
             roomNumber:''
         },
         ownerInfo:{
             present:1,
+            roomNumber:'',
             ownerName:'',
             sex:'',
             nationality:'',
             residence:'',
             personalid:'',
+            roomStatus:'',
             phoneNumber:'',
             merriageStatus:'',
             partyMember:'',
@@ -346,17 +441,20 @@ export default {
         src:"",
         infos:{},
         fileName:'',
+        excel1:'',
+        excel2:'',
+        ownerExcel:[]
     }
   },
   methods:{
-    getFile(el){
+    getFile(el){//保存文件
         var vm=this;
         var file=el.target;
         var formData=new FormData();
         formData.append('file',file.files[0]);
         var src=file.files[0].name,
             formart=src.split(".")[1];
-        if(formart=="docx"||formart=="txt"||formart=="ppt"||formart=="xlsx"||formart=="zip"||
+        if(formart=="docx"||formart=="txt"||formart=="ppt"||formart=="xlsx"|| formart=="zip"||
             formart=="rar"||formart=="doc" || formart=="pdf"){
             vm.fileName=src;
             axios.post('/api/profile',formData)
@@ -367,14 +465,77 @@ export default {
             
         }else{
             alert('文件不符合格式！');
-        }
-        
+        }        
     },
+    getFile(el){//导入表格，批量导入房主和房客
+        var vm=this;
+        var obj=el.target;
+        importfile(obj);
+        setTimeout(function(){
+            for(var i=1;i<fileDt.Sheet1[0].length;i++){
+                let row=fileDt.Sheet1[0][i];
+                // console.log(row);return;
+                // vm.ownerExcel.push({
+                //     present:1,
+                //     vilage:row[0],
+                //     building:row[1],
+                //     unit:row[3],
+                //     roomNumber:row[4],
+                //     personNumber:row[7],
+                //     relationShip:row[8],
+                //     ownerName:row[9],
+                //     sex:row[13],
+                //     nationality:row[16],
+                //     residence:row[22],
+                //     personalid:row[11],
+                //     roomStatus:row[10],
+                //     phoneNumber:row[18],
+                //     merriageStatus:row[17],
+                //     partyMember:row[36],
+                //     volunteer:'',
+                //     employment:row[28],
+                //     educationDegree:row[20],
+                //     resident:row[22],
+                //     oldman:row[40],
+                //     singleOld:row[42],
+                //     minLivings:row[32],
+                //     disability:row[34],
+                //     seriousHealth:row[35],
+                //     specialCare:row[37],
+                //     serviceMan:row[38],
+                //     retirement:row[39],
+                //     released:row[44],
+                //     corrected:row[45],
+                //     psychosis:'',
+                //     monitoring:'',
+
+                //     resitdenceAdd:'',
+                //     religious:'',
+                //     militaryDetail:'',
+                //     employer:'',
+                //     occupation:'',
+                //     employerAdd:'',
+                //     employerPhone:'',
+                //     profession:'',
+                //     speciality:'',
+                //     height:'',
+                //     weight:'',
+                //     bloodType:'',           
+                //     documents:''
+                // })
+            }
+            console.log(vm.ownerExcel)
+
+            
+        },100)        
+    },
+    importSave(){},
     tab(){
         this.$router.push('/home')
     },
     saveAll(){
         let vm=this;
+        vm.ownerInfo.roomNumber=vm.roomInfo.roomNumber;
         if(vm.roomInfo.building == "" || vm.roomInfo.building == null || 
         vm.roomInfo.roomNumber == "" || vm.roomInfo.roomNumber == null){
             alert("房屋信息不完整！");
@@ -408,6 +569,7 @@ export default {
   mounted(){
       let vm=this;
       vm.$events.on('renterInfo',function(val){
+          val.roomNumber=vm.roomInfo.roomNumber;
           vm.renterArr.push(val);
       })
   },

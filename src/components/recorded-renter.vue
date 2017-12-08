@@ -275,6 +275,7 @@
                 tenantDisp:false,
                 renterInfo:{
                     tenantName:'',
+                    roomNumber:'',
                     sex:'',
                     nationality:'',
                     residence:'',
@@ -326,6 +327,7 @@
             initRenter(){
                 this.renterInfo={
                     present:'',
+                    roomNumber:'',
                     tenantName:'',
                     sex:'',
                     nationality:'',
