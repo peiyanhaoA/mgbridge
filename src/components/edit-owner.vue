@@ -185,7 +185,6 @@ export default {
     return {
       ownerInf: {
             present:1,
-            roomNumber:'',
             ownerName:'',
             sex:'',
             nationality:'',

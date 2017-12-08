@@ -301,7 +301,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-file" style="z-index:0">
-                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="getFile($event)" required />
+                            <input type="file" id="excel" name="excel" style="width:100%;opacity:0;" ref="file" @change="getExcels($event)" required />
                             <span class="custom-file-control">批量导入房主信息</span>                            
                         </label>  
                     </div>
@@ -447,7 +447,7 @@ export default {
     }
   },
   methods:{
-    getFile(el){//保存文件
+    getFile(el){//保存文件到服务器
         var vm=this;
         var file=el.target;
         var formData=new FormData();
@@ -467,14 +467,14 @@ export default {
             alert('文件不符合格式！');
         }        
     },
-    getFile(el){//导入表格，批量导入房主和房客
+    getExcels(el){//导入表格，批量导入房主和房客
         var vm=this;
         var obj=el.target;
         importfile(obj);
         setTimeout(function(){
             for(var i=1;i<fileDt.Sheet1[0].length;i++){
-                let row=fileDt.Sheet1[0][i];
-                // console.log(row);return;
+                let row=fileDt.Sheet1;
+                console.log(row);return;
                 // vm.ownerExcel.push({
                 //     present:1,
                 //     vilage:row[0],

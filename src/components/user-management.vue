@@ -36,7 +36,7 @@
             </el-table-column>
             <el-table-column label="性别">
                 <template slot-scope="scope">                   
-                    <el-select v-model="scope.row.sex" size="mini" :disabled="scope.row.working" placeholder="请选择活动区域">
+                    <el-select v-model="scope.row.sex" size="mini" :disabled="scope.row.working">
                         <el-option label="男" value="男"></el-option>
                         <el-option label="女" value="女"></el-option>
                     </el-select>
@@ -66,6 +66,7 @@ export default {
   data(){
       return {
         managers:[]
+        
       }
   },
   methods:{

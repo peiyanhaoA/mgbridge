@@ -34,7 +34,7 @@ router.post('/getAll', function(req, res) {
     fs.readFile(URL + '/owner.json', function(err, data) {
         if (err) return console.error(err);
         infos.owner = JSON.parse(data.toString());
-        infos.owner.push(owner);
+        infos.owner.unshift(owner);
         fs.writeFile(URL + '/owner.json', JSON.stringify(infos.owner), function(error) {
             if (error) return console.error(error);
         });
@@ -43,7 +43,7 @@ router.post('/getAll', function(req, res) {
         fs.readFile(URL + '/renter.json', function(err, data) {
             if (err) return console.error(err);
             infos.renter = JSON.parse(data.toString());
-            infos.renter.push(renter);
+            infos.renter.unshift(renter);
             fs.writeFile(URL + '/renter.json', JSON.stringify(infos.renter), function(error) {
                 if (error) return console.error(error);
             });

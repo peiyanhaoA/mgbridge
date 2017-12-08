@@ -34,6 +34,7 @@ export default new Vuex.Store({
                     build: paylode.building
                 },
                 success(data){
+                    
                     switch(data.rows.length){
                         case 8:
                         state.width = '850px';
