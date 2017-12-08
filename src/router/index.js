@@ -4,7 +4,10 @@ import Login from '@/view/login'
 import Home from '@/view/home'
 import recorded from '../components/recorded';
 import eventHanding from '../components/event-handing.vue';
-import userManage from '../components/user-management.vue'
+import userManage from '../components/user-management.vue';
+import buildingDetails from '../components/buildingDetails.vue';
+import personInfo from '../components/person-info.vue';
+import editInfo from '../components/edit-info.vue';
 Vue.use(Router)
 
 export default new Router({
@@ -25,11 +28,6 @@ export default new Router({
       component: Home,
       children:[
         {
-          path: '/home',
-          name: 'Home' ,
-          component: Home
-        },
-        {
           path: 'record',
           name: 'record',
           component: recorded
@@ -43,6 +41,21 @@ export default new Router({
           path: 'usermanage',
           name: 'usermanage',
           component: userManage
+        },
+        {
+          path: 'buildingDetails',
+          name: 'buildingDetails',
+          component: buildingDetails 
+        },
+        {
+          path: 'personInfo',
+          name: 'personInfo',
+          component: personInfo 
+        },
+        {
+          path: 'editInfo',
+          name: 'editInfo',
+          component: editInfo 
         }
       ]
     }

@@ -18,21 +18,34 @@
             </div>
           </div>
       </div>
+      <!-- <el-card class="box-card" v-loading.fullscreen.lock="fullscreenLoading">
+  
+      </el-card> -->
     </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      
+      // fullscreenLoading: false
     }
   },
   methods:{
     login(){
+      let vm = this;
+      // vm.fullscreenLoading = true;
       
-       this.$router.replace({
-        path: '/home'
-    });
+      $.ajax({
+          method: 'post',
+          url: '/api/obtain',
+          success(res){
+            vm.$store.commit('getRoomInfo',res)
+            // vm.fullscreenLoading = false;
+            vm.$router.replace({
+              path: '/home'
+            });
+          }
+      });
     }
   }
 }

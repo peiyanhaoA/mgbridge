@@ -19,8 +19,6 @@
     import $ from 'jquery'
     import axios from 'axios';
     import Highcharts from 'highcharts';
-    import buildingDetails from '../components/buildingDetails.vue';
-    import personInfo from '../components/person-info.vue'
 	// 添加环形遮罩层
 	function createRingOverlay (corver, map){
         // 添加环形遮罩层
@@ -142,7 +140,10 @@
         })
 
         div.addEventListener('click',function(){
-            that.$store.commit('getInfo', {text: text});
+            that.$store.commit('showRooms',{ building: text })
+            setTimeout(function(){
+                that.$router.push({name: 'buildingDetails',params: { building: text }}); 
+            },2000) 
         })
 
         this._div = div;
@@ -193,12 +194,7 @@ export default {
     vm.$events.on('tab',function(val){
         vm.tab=val;
     });
-  },
-  components:{
-    buildingDetails,
-    personInfo
   }
-  
 }
 </script>
 <style scoped>
