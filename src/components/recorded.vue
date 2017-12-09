@@ -296,7 +296,7 @@
                 </div>
             </form> 
             <hr>
-            <button type="button" class="btn btn-outline-success" @click="batchDisp=true">批量导入</button>
+            <!--<button type="button" class="btn btn-outline-success" @click="batchDisp=true">批量导入</button>
             <form class="my-4" v-if="batchDisp">
                 <div class="row">
                     <div class="col-sm-4">
@@ -323,12 +323,13 @@
                 <div class="row my-4">
                     <div class="col-6">
                         <button type="button" class="btn btn-outline-secondary" @click="tab">取消</button>
-                        <button type="button" class="btn btn-outline-danger mx-4" @click="importSave">确定</button>
+                        <button type="button" class="btn btn-outline-danger mx-4" @click="importSave">导入</button>
                     </div>
                 </div>
-            </form>
+            </form>-->
         </div>
     </div>
+    
     <recorded-renter></recorded-renter>
   </div>
 </template>
@@ -337,7 +338,7 @@ import axios from 'axios';
 import async from 'async';
 import recordedRenter from './recorded-renter';
 import XLSX from 'xlsx';
-var wb; //读取完成的数据
+/**var wb; //读取完成的数据
 var rABS = false; //是否将文件读取为二进制字符串
 var fileDt = null;
 function importfile(obj) { //导入
@@ -368,8 +369,8 @@ function importfile(obj) { //导入
             var row=XLSX.utils.sheet_to_json(wb.Sheets[sheetName],{header:1});
             if(row.length) result[sheetName]=row;
         })
-        // console.log(JSON.stringify(result, 2, 2));
         fileDt=JSON.parse(JSON.stringify(result, 2, 2))
+        console.log(fileDt);
         // fileDt = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
         // console.log(fileDt);
     };
@@ -382,7 +383,7 @@ function fixdata(data) { //文件流转BinaryString
     for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
     o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
     return o;
-}
+}*/
 export default {
   name:'recorded',
   data(){
@@ -434,8 +435,8 @@ export default {
             height:'',
             weight:'',
             bloodType:'',           
-            documents:''
-
+            documents:'',
+            bgColor:''
         },
         renterArr:[],
         src:"",
@@ -459,7 +460,8 @@ export default {
             vm.fileName=src;
             axios.post('/api/profile',formData)
             .then(function(data){
-                vm.ownerInfo.documents=data;
+                console.log(data);
+                vm.ownerInfo.documents=data.data;
             })
             .catch(function(err){console.log(err)})
             
@@ -467,69 +469,73 @@ export default {
             alert('文件不符合格式！');
         }        
     },
-    getExcels(el){//导入表格，批量导入房主和房客
+    /**getExcels(el){//导入表格，批量导入房主和房客
         var vm=this;
         var obj=el.target;
         importfile(obj);
         setTimeout(function(){
-            for(var i=1;i<fileDt.Sheet1[0].length;i++){
-                let row=fileDt.Sheet1;
-                console.log(row);return;
-                // vm.ownerExcel.push({
-                //     present:1,
-                //     vilage:row[0],
-                //     building:row[1],
-                //     unit:row[3],
-                //     roomNumber:row[4],
-                //     personNumber:row[7],
-                //     relationShip:row[8],
-                //     ownerName:row[9],
-                //     sex:row[13],
-                //     nationality:row[16],
-                //     residence:row[22],
-                //     personalid:row[11],
-                //     roomStatus:row[10],
-                //     phoneNumber:row[18],
-                //     merriageStatus:row[17],
-                //     partyMember:row[36],
-                //     volunteer:'',
-                //     employment:row[28],
-                //     educationDegree:row[20],
-                //     resident:row[22],
-                //     oldman:row[40],
-                //     singleOld:row[42],
-                //     minLivings:row[32],
-                //     disability:row[34],
-                //     seriousHealth:row[35],
-                //     specialCare:row[37],
-                //     serviceMan:row[38],
-                //     retirement:row[39],
-                //     released:row[44],
-                //     corrected:row[45],
-                //     psychosis:'',
-                //     monitoring:'',
+            console.log(fileDt);
+            for(var i=1;i<fileDt.Sheet1.length;i++){
+                let row=fileDt.Sheet1[i];
+                vm.ownerExcel.push({
+                    present:1,
+                    vilage:row[0],
+                    building:row[1],
+                    unit:row[3],
+                    roomNumber:row[4],
+                    personNumber:row[7],
+                    relationShip:row[8],
+                    ownerName:row[9],
+                    sex:row[13],
+                    nationality:row[16],
+                    residence:row[22],
+                    personalid:row[11],
+                    roomStatus:row[10],
+                    phoneNumber:row[18],
+                    merriageStatus:row[17],
+                    partyMember:row[36],
+                    volunteer:'',
+                    employment:row[28],
+                    educationDegree:row[20],
+                    resident:row[22],
+                    oldman:row[40],
+                    singleOld:row[42],
+                    minLivings:row[32],
+                    disability:row[34],
+                    seriousHealth:row[35],
+                    specialCare:row[37],
+                    serviceMan:row[38],
+                    retirement:row[39],
+                    released:row[44],
+                    corrected:row[45],
+                    psychosis:'',
+                    monitoring:'',
 
-                //     resitdenceAdd:'',
-                //     religious:'',
-                //     militaryDetail:'',
-                //     employer:'',
-                //     occupation:'',
-                //     employerAdd:'',
-                //     employerPhone:'',
-                //     profession:'',
-                //     speciality:'',
-                //     height:'',
-                //     weight:'',
-                //     bloodType:'',           
-                //     documents:''
-                // })
+                    resitdenceAdd:'',
+                    religious:'',
+                    militaryDetail:'',
+                    employer:'',
+                    occupation:'',
+                    employerAdd:'',
+                    employerPhone:'',
+                    profession:'',
+                    speciality:'',
+                    height:'',
+                    weight:'',
+                    bloodType:'',           
+                    documents:''
+                })
             }
-            console.log(vm.ownerExcel)
-
-            
+            console.log(vm.ownerExcel)            
         },100)        
     },
-    importSave(){},
+    importSave(){
+        console.log('--------------');
+        let vm = this;
+        axios.post('/api/batch',vm.ownerExcel)
+        .then(function(){console.log('sss')})
+        .catch(function(err){console.log(err)})
+    },*/
     tab(){
         this.$router.push('/home')
     },
@@ -546,6 +552,27 @@ export default {
             alert("房主信息不完整！");
             return;
         }
+
+        if(vm.roomInfo.released == 1 || vm.roomInfo.corrected == 1 ||
+         vm.roomInfo.psychosis == 1 || vm.roomInfo.monitoring == 1){
+           vm.roomInfo.bgColor='red';
+        }else{
+            if(vm.roomInfo.roomStatus == 1){
+                vm.roomInfo.bgColor='lightgreen';
+            }else if(vm.roomInfo.roomStatus == 2){
+                vm.roomInfo.bgColor='lightblue';
+            }else if(vm.roomInfo.roomStatus == 3){
+                vm.roomInfo.bgColor='yellow'
+            }else if(vm.roomInfo.roomStatus == 4){
+                vm.roomInfo.bgColor='yellow';
+            }else if(vm.roomInfo.roomStatus == 5){
+                vm.roomInfo.bgColor='yellow';
+            }else{
+                vm.roomInfo.bgColor='yellow';
+            }
+        }
+
+
         axios.post('/api/getAll',{
             roomInfo:vm.roomInfo,
             ownerInfo:vm.ownerInfo,
