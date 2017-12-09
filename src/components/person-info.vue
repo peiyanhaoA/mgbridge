@@ -64,8 +64,50 @@
 export default {
     data(){
         return {
-            ownerInfor: this.$store.state.oneOwner,
-            index: 0
+            index: 0,
+            ownerInfor: {
+                present:1,
+                ownerName:' ',
+                sex:' ',
+                nationality:' ',
+                residence:' ',
+                personalid:' ',
+                roomStatus:' ',
+                phoneNumber:' ',
+                merriageStatus:' ',
+                partyMember:' ',
+                volunteer:' ',
+                employment:' ',
+                educationDegree:' ',
+                resident:' ',
+                oldman:' ',
+                oldmanAge:' ',
+                singleOld:' ',
+                minLivings:' ',
+                disability:' ',
+                seriousHealth:' ',
+                specialCare:' ',
+                serviceMan:' ',
+                retirement:' ',
+                released:' ',
+                corrected:' ',
+                psychosis:' ',
+                monitoring:' ',
+                resitdenceAdd:' ',
+                religious:' ',
+                militaryDetail:' ',
+                employer:' ',
+                occupation:' ',
+                employerAdd:' ',
+                employerPhone:' ',
+                profession:' ',
+                speciality:' ',
+                height:' ',
+                weight:' ',
+                bloodType:' ',           
+                documents:' '
+
+            }
         }
     },
     methods: {
@@ -87,8 +129,15 @@ export default {
         }
     },
     mounted(){
-        console.log("1111")
-        this.$store.commit('searchInfo')
+        this.$store.commit('creatUrl')
+        this.$store.commit('searchInfo', {ownerInfor: this.ownerInfor});
+        
+    },
+    created(){
+        
+    },
+    computed:{
+
     }
 }
 </script>

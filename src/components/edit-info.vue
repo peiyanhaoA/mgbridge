@@ -27,7 +27,7 @@ export default {
     },
     mounted(){
         this.$events.emit('infoEvent', this.$route.params.owner);
-        this.$store.commit('creatUrl')
+        
     },
     components:{
         editOwner,

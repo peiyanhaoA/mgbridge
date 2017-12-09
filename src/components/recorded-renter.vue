@@ -14,7 +14,7 @@
                     <div class="col-sm-4">
                         <label class="recordLabel">性别</label>
                         <select class="recordForm" v-model="renterInfo.sex">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">男</option>
                             <option value="1">女</option>
                         </select>                         
@@ -32,12 +32,21 @@
                         <input class="recordForm"  type="text" v-model="renterInfo.phoneNumber">                        
                     </div>
                     <div class="col-sm-6">
-                        <label class="recordLabel">与户主关系</label>
-                        <input class="recordForm"  type="text" v-model="renterInfo.relationShip">                        
+                        <label class="recordLabel">与户主关系</label> 
+                        <select class="recordForm" v-model="renterInfo.relationShip">
+
+                            <option value="0">亲戚</option>
+                            <option value="1">朋友</option>
+                            <option value="1">租客</option>
+                        </select>                     
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">住宿方式</label>
-                        <input class="recordForm"  type="text" v-model="renterInfo.rental">                        
+                        <select class="recordForm" v-model="renterInfo.rental">
+
+                            <option value="0">寄住</option>
+                            <option value="1">租住</option>
+                        </select>                        
                     </div>
                     <div class="col-sm-7">
                         <label class="recordLabel">租赁开始日期</label>
@@ -50,7 +59,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">户籍标志</label>
                         <select class="recordForm" v-model="renterInfo.residence">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非户籍</option>
                             <option value="1">户籍</option>
                         </select>                         
@@ -58,7 +67,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">婚姻状态</label>
                         <select class="recordForm" v-model="renterInfo.merriageStatus">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">未婚</option>
                             <option value="1">已婚</option>
                             <option value="2">离异</option>
@@ -67,7 +76,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">政治面貌</label>
                         <select class="recordForm" v-model="renterInfo.partyMember">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非党员</option>
                             <option value="1">党员</option>
                         </select>                         
@@ -75,7 +84,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否志愿者</label>
                         <select class="recordForm" v-model="renterInfo.volunteer">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="1">是</option>
                             <option value="0">否</option>
                         </select>                         
@@ -83,7 +92,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">就业状态</label>
                         <select class="recordForm" v-model="renterInfo.employment">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">未就业</option>
                             <option value="1">就业</option>
                         </select>                         
@@ -91,7 +100,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">文化程度</label>
                         <select class="recordForm" v-model="renterInfo.educationDegree">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">文盲</option>
                             <option value="1">小学</option>
                             <option value="2">中学</option>
@@ -103,7 +112,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否常驻</label>
                         <select class="recordForm" v-model="renterInfo.resident">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">常驻</option>
                             <option value="1">流动</option>
                         </select>                         
@@ -111,7 +120,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">60岁以上</label>
                         <select class="recordForm" v-model="renterInfo.oldman">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="1">是</option>
                             <option value="0">否</option>
                         </select>                         
@@ -119,7 +128,7 @@
                     <div class="col-sm-7">
                         <label class="recordLabel">是否独居老人</label>
                         <select class="recordForm" v-model="renterInfo.singleOld">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="1">非独居老人</option>
                             <option value="0">独居老人</option>
                         </select>                         
@@ -127,7 +136,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">困难户</label>
                         <select class="recordForm" v-model="renterInfo.minLivings">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非低保户</option>
                             <option value="1">低保边缘户</option>
                             <option value="2">低保户</option>
@@ -136,7 +145,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否残疾</label>
                         <select class="recordForm" v-model="renterInfo.disability">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">残疾</option>
                         </select>                         
@@ -144,7 +153,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否重疾</label>
                         <select class="recordForm" v-model="renterInfo.seriousHealth">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">重疾</option>
                         </select>                         
@@ -152,7 +161,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否优抚</label>
                         <select class="recordForm" v-model="renterInfo.specialCare">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非优抚</option>
                             <option value="1">优抚</option>
                         </select>                         
@@ -160,7 +169,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否现役</label>
                         <select class="recordForm" v-model="renterInfo.serviceMan">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非现役</option>
                             <option value="1">现役</option>
                         </select>                         
@@ -168,7 +177,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否退役</label>
                         <select class="recordForm" v-model="renterInfo.retirement">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">非退役</option>
                             <option value="1">退役</option>
                         </select>                         
@@ -176,7 +185,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否刑释</label>
                         <select class="recordForm" v-model="renterInfo.released">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">刑释</option>
                             <option value="2">解教</option>
@@ -185,7 +194,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否矫正</label>
                         <select class="recordForm" v-model="renterInfo.corrected">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">矫正</option>
                         </select>                         
@@ -193,7 +202,7 @@
                     <div class="col-sm-8">
                         <label class="recordLabel">是否重度精神病</label>
                         <select class="recordForm" v-model="renterInfo.psychosis">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">重度精神病</option>
                         </select>                         
@@ -201,7 +210,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否监控</label>
                         <select class="recordForm" v-model="renterInfo.monitoring">
-                            <option selected value="" disabled>请选择</option>
+
                             <option value="0">正常</option>
                             <option value="1">监控人群</option>
                         </select>                         

@@ -51,8 +51,28 @@ fs.readdir('shanshuiyuan',function(err,files){
                            let n = k[3];
                         //    console.log(l,n)
                         //    console.log( l + n)
-                            var d = {"zone":"025","district":"06","subdistrict":"01","community":"04","village":"燕升园","building":"15","itemID":"","roomID":"","cDate":"2017-12-4","uDate":"2017-12-4","floor":"02","roomNumber": l + n,"partyMember":"","oldman":"","singleOld":"","volunteer":"",
-                            "residence":"","minLivings":"","roomStatus":"","bgColor":"yellow"}
+                            var d = {
+                                "zone":"025",
+                                "district":"06",
+                                "subdistrict":"01",
+                                "community":"04",
+                                "village":"燕升园",
+                                "building":"15",
+                                "itemID":"",
+                                "roomID":"",
+                                "cDate":"2017-12-4",
+                                "uDate":"2017-12-4",
+                                "floor":"02",
+                                "roomNumber": l+n,
+                                "partyMember":"",
+                                "oldman":"",
+                                "singleOld":"",
+                                "volunteer":"",
+                                "residence":"",
+                                "minLivings":"",
+                                "roomStatus":"",
+                                "bgColor":"yellow"
+                            }
                             var f3 = f2 + '/' + fis[2]
                             var e = JSON.stringify(d);
                             var writerStream = fs.createWriteStream(f3);

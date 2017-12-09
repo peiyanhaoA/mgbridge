@@ -148,22 +148,21 @@ router.post('/getOwner', function(req, res) {
             let renterInfoUrl = roomUrl + '/' + 'renter.json';
             fs.open(ownerInfoUrl, 'r', function(err, fd) {
                 let owner = fs.readFileSync(ownerInfoUrl);
-                ownerInfo.push(JSON.parse(owner.toString()));
-                fs.close(fd)
+                let ownerJson = JSON.parse(owner.toString());
+                ownerInfo.push(ownerJson);
+                fs.close(fd);
             });
             fs.open(renterInfoUrl, 'r', function(err, fd) {
                 let renter = fs.readFileSync(renterInfoUrl);
-                if (renter.length == 0) {
-                    renterInfo.push(renter)
-                } else {
-                    renterInfo.push(JSON.parse(renter.toString()))
-                }
-                fs.close(fd)
+                let renterJson = JSON.parse(renter.toString());
+                renterInfo.push(renterJson);
+                fs.close(fd);
             });
             fs.open(buildInfoUrl, 'r', function(err, fd) {
                 let build = fs.readFileSync(buildInfoUrl);
-                buildInfo.push(JSON.parse(build.toString()));
-                fs.close(fd)
+                let buildJson = JSON.parse(build.toString());
+                buildInfo.push(buildJson)
+                fs.close(fd);
             });
         })
 
@@ -214,5 +213,38 @@ router.post('/writeRenterInfo', function(req, res) {
         console.log(err.stack);
     });
 })
+
+router.post('/getOneInfo',function(req, res){
+    let readOwnerUrl = req.body.oneUrl + 'owner.json';
+    let readRenterUrl = req.body.oneUrl + 'renter.json';
+    let ownerData = '';
+    let renterData = '';
+
+    // 读取房主信息
+    let readOwnerStream = fs.createReadStream(readOwnerUrl);
+    readOwnerStream.setEncoding('UTF8');
+    readOwnerStream.on('data', function(chunk) {
+        ownerData += chunk;
+    });
+
+    // 读取访客信息
+    let readRenterStream = fs.createReadStream(readRenterUrl);
+    readRenterStream.setEncoding('UTF8');
+    readRenterStream.on('data', function(chunk) {
+        renterData += chunk;
+    });
+
+    readRenterStream.on('end',function(){
+        let ownerDataJson = JSON.parse(ownerData);
+        let renterDataJson = JSON.parse(renterData);
+        let obj = {
+          ownerInfo: ownerDataJson,
+          renterInfo: renterDataJson
+        }
+       res.send(obj)
+    });
+
+})
+
 
 module.exports = router;

@@ -192,7 +192,7 @@
         </el-form>
       </div>
       <div id="renterBtns">
-              <el-button size="mini" type="primary" :disabled="disabled" @click="save">保存</el-button>
+              <el-button size="mini" type="primary" @click="save">保存</el-button>
               <el-button size="mini" type="primary" @click="deleRenter">删除</el-button>
               <el-button size="mini" type="primary" @click="cancel">返回</el-button>
           </div>
@@ -250,7 +250,6 @@ export default {
       },
       lodger: this.$store.state.hisOneRenter[0],
       index: null,
-      disabled: true
     }
   },
   mounted(){

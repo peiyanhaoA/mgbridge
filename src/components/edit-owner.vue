@@ -8,7 +8,10 @@
             <el-input size="mini" style="width:150px;" v-model="ownerInf.nationality"></el-input>
         </el-form-item>
         <el-form-item label="户籍">
-            <el-input size="mini" style="width:150px;" v-model="ownerInf.residence"></el-input>
+            <el-select size="mini" style="width:150px;" v-model="ownerInf.residence" >
+              <el-option label="户籍" value="0"></el-option>
+              <el-option label="非户籍" value="1"></el-option>
+            </el-select>
         </el-form-item>
         <el-form-item label="身份证号">
             <el-input size="mini" style="width:150px;" v-model="ownerInf.personalid"></el-input>
@@ -17,7 +20,13 @@
             <el-input size="mini" style="width:150px;" v-model="ownerInf.phoneNumber"></el-input>
         </el-form-item>
         <el-form-item label="房间类型">
-            <el-input size="mini" style="width:150px;" v-model="ownerInf.roomStatus"></el-input>
+             <el-select size="mini" style="width:150px;" v-model="ownerInf.roomStatus" >
+              <el-option label="自住" value="1"></el-option>
+              <el-option label="出租" value="2"></el-option>
+              <el-option label="未拿房" value="3"></el-option>
+              <el-option label="装修" value="4"></el-option>
+              <el-option label="失联" value="5"></el-option>
+            </el-select>
         </el-form-item>
         <el-form-item label="性别：">
             <el-select size="mini" style="width:150px;" v-model="ownerInf.sex" >

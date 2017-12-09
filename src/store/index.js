@@ -5,13 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        ownerDisable: true,
+        renterDisable: true,
         roomInfo: [],
         buildings: [],
         ownerInfo: [],
         renterInfo: [],
         width: '',
         roomNum: '',
-        oneOwner: {},
         oneRenter: {},
         oneRoom: {},
         hisOneOwner: [],
@@ -19,7 +20,51 @@ export default new Vuex.Store({
         clickBuildNum: '',
         URL: './static/shanshuiyuan/',
         creatUrl: '',
-        color: ''
+        color: '',
+        oneOwner:{
+            present:1,
+            ownerName:' ',
+            sex:' ',
+            nationality:' ',
+            residence:' ',
+            personalid:' ',
+            roomStatus:' ',
+            phoneNumber:' ',
+            merriageStatus:' ',
+            partyMember:' ',
+            volunteer:' ',
+            employment:' ',
+            educationDegree:' ',
+            resident:' ',
+            oldman:' ',
+            oldmanAge:' ',
+            singleOld:' ',
+            minLivings:' ',
+            disability:' ',
+            seriousHealth:' ',
+            specialCare:' ',
+            serviceMan:' ',
+            retirement:' ',
+            released:' ',
+            corrected:' ',
+            psychosis:' ',
+            monitoring:' ',
+            resitdenceAdd:' ',
+            religious:' ',
+            militaryDetail:' ',
+            employer:' ',
+            occupation:' ',
+            employerAdd:' ',
+            employerPhone:' ',
+            profession:' ',
+            speciality:' ',
+            height:' ',
+            weight:' ',
+            bloodType:' ',           
+            documents:' '
+
+        }
+
     },
     mutations: {
         saveCAndr(state, pay) {
@@ -51,26 +96,30 @@ export default new Vuex.Store({
 
             })
         },
-        searchInfo(state) {
-            state.ownerInfo.forEach(function(e) {
-                console.log(e)
-                if (e.length != 0) {
-                    console.log("113333333333")
-                    console.log(e)
-                    if (e[0].roomNumber == state.roomNum) {
-                        state.oneOwner = e[0];
-                        state.hisOneOwner = e;
-                        console.log(state.oneOwner)
+        searchInfo(state,pay) {
+            $.ajax({
+                method: 'post',
+                url: '/api/getOneInfo',
+                data:{
+                    oneUrl: state.creatUrl
+                },
+                success(res){
+                    if(res.ownerInfo[0]){
+                        state.ownerDisable = false;
+                        state.oneOwner = res.ownerInfo[0];
+                        state.hisOneOwner = res.ownerInfo;
+                    }else{ 
+                        state.oneOwner = pay.ownerInfor;
+                    }
+                   
+                    state.hisOneRenter = res.renterInfo;
+                    if(res.renterInfo.length != 0){
+                        state.renterDisable = false;
                     }
                 }
-            });
-            state.renterInfo.forEach(function(e) {
-                if (e.length != 0) {
-                    if (e[0][0].roomNumber == state.roomNum) {
-                        state.hisOneRenter = e
-                    }
-                }
-            });
+
+            })
+
             state.roomInfo.forEach(function(e) {
                 if (e.roomNumber == state.roomNum) {
                     state.oneRoom = e

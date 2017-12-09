@@ -175,7 +175,7 @@ export default {
   },
   mounted(){
     let vm = this;
-    let map = new BMap.Map("allmap");
+    let map = new BMap.Map("allmap",{mapType:BMAP_SATELLITE_MAP});
     map.centerAndZoom(new BMap.Point(118.839323, 32.116994), 15);
     map.setCurrentCity("南京");
     axios.get('../../index.json')
