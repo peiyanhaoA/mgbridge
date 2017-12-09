@@ -4,7 +4,7 @@
             <table class="table table-bordered" @contextmenu.prevent="edit">
                 <tbody>
                     <tr>
-                        <td :style="{'background-color': this.$store.state.color}">{{ this.$store.state.roomNum}}</td>
+                        <td :style="{'background-color': this.$store.state.oneRoom.bgColor}">{{ this.$store.state.roomNum}}</td>
                         <td>房主姓名</td>
                         <td>{{ this.$store.state.oneOwner.ownerName }}</td>
                         <td>联系电话</td>
@@ -32,13 +32,13 @@
             </table>
             <div id="btns" class="d-flex justify-content-between">
                 <div style="margin-left:20px;">
-                    <span v-if="ownerInfor.partyMember == 1">☆</span>
-                    <span v-if="ownerInfor.oldman == 1">□</span>
-                    <span v-if="ownerInfor.singleOld == 1">☾</span>
-                    <span v-if="ownerInfor.volunteer == 1">ღ</span>
-                    <span v-if="ownerInfor.residence == 0">√</span>
-                    <span v-if="ownerInfor.minLivings == 2">△</span>
-                    <span v-if="this.$store.state.color == 'red'">jiankong</span>
+                    <span v-if="this.$store.state.oneOwner.partyMember == 1">☆</span>
+                    <span v-if="this.$store.state.oneOwner.oldman == 1">□</span>
+                    <span v-if="this.$store.state.oneOwner.singleOld == 1">☾</span>
+                    <span v-if="this.$store.state.oneOwner.volunteer == 1">ღ</span>
+                    <span v-if="this.$store.state.oneOwner.residence == 0">√</span>
+                    <span v-if="this.$store.state.oneOwner.minLivings == 2">△</span>
+                    <span v-if="this.$store.state.oneRoom.bgColor == 'red'">监控</span>
                 </div>
                 <ul class="pagination float-right" style="margin:0;padding:0;">
 					<li class="page-item">
