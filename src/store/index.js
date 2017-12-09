@@ -8,33 +8,34 @@ export default new Vuex.Store({
         roomInfo: [],
         buildings: [],
         ownerInfo: [],
-        bgcolor: [],
         renterInfo: [],
         width: '',
         roomNum: '',
         oneOwner: {},
         oneRenter: {},
+        oneRoom: {},
         hisOneOwner: [],
         hisOneRenter: [],
         clickBuildNum: '',
         URL: './static/shanshuiyuan/',
-        creatUrl: ''
+        creatUrl: '',
+        color: ''
     },
     mutations:{
-        getRoomInfo(state, pay){
-            state.roomInfo = pay.info
+        saveCAndr(state,pay){
+            state.color = pay.bgcolor;
+            state.roomNum = pay.roomNum;
         },
         showRooms(state, paylode){
             state.clickBuildNum = paylode.building;
             $.ajax({
                 method: 'post',
                 url: '/api/getOwner',
-                dataType: 'json',
+                // dataType: 'json',
                 data:{
                     build: paylode.building
                 },
                 success(data){
-                    
                     switch(data.rows.length){
                         case 8:
                         state.width = '850px';
@@ -43,53 +44,34 @@ export default new Vuex.Store({
                         state.width = '1055px';
                         break;
                     }
+                    state.roomInfo = data.build;
                     state.renterInfo = data.renter;
                     state.ownerInfo = data.owner;
-                    state.ownerInfo.forEach(function(e){
-                        if(e.released == 1 || e.corrected == 1 || e.psychosis == 1 || e.monitoring == 1){
-                            state.bgcolor.push('red')
-                        }else{
-                            switch(e[0].roomStatus){
-                                case 1: 
-                                    state.bgcolor.push('lightgreen')
-                                    break;
-                                case 2: 
-                                    state.bgcolor.push('lightblue')
-                                    break;
-                                case 3: 
-                                    state.bgcolor.push('yellow')
-                                    break;
-                                case 4: 
-                                state.bgcolor.push('yellow')
-                                    break;
-                                case 5: 
-                                state.bgcolor.push('yellow')
-                                    state.ownerInfo.icon = '○'
-                                    break;
-                                default :
-                                state.bgcolor.push('yellow')
-                                    break;
-                            }
-                        }
-                    })
                 }
+               
             })
         },
-        searchInfo(state, payload){
-            state.roomNum = payload.roomNum;
+        searchInfo(state){
             state.ownerInfo.forEach(function(e){
-                if(e[0].roomNumber == payload.roomNum){
-                    state.oneOwner = e[0];
-                    state.hisOneOwner = e;
+                if(e.length != 0){
+                    if(e[0].roomNumber == state.roomNum){
+                        state.oneOwner = e[0];
+                        state.hisOneOwner = e;
+                    }
                 }
             });
             state.renterInfo.forEach(function(e){
                 if(e.length != 0){
-                    if(e[0].roomNumber == payload.roomNum){
-                        state.hisOneRenter = e;
+                    if(e[0][0].roomNumber == state.roomNum){
+                        state.hisOneRenter = e
                     }
                 }
             });
+            state.roomInfo.forEach(function(e){
+                if(e.roomNumber == state.roomNum){
+                    state.oneRoom = e
+                }
+            })
         },
         creatUrl(state){
             let arrNew = state.roomNum.split('');
@@ -108,6 +90,31 @@ export default new Vuex.Store({
         },
         writeOwner(state, pay){
             let writeUrl = state.creatUrl + 'owner.json';
+            let writeRoomUrl = state.creatUrl + 'room.json';
+            state.oneRoom.partyMember = pay.newOwner.partyMember;
+            state.oneRoom.oldman = pay.newOwner.oldman;
+            state.oneRoom.singleOld = pay.newOwner.singleOld;
+            state.oneRoom.volunteer = pay.newOwner.volunteer;
+            state.oneRoom.residence = pay.newOwner.residence;
+            state.oneRoom.minLivings = pay.newOwner.minLivings;
+            if(pay.newOwner.released == 1 || pay.newOwner.corrected == 1 || pay.newOwner.psychosis == 1 || pay.newOwner.monitoring == 1){
+                state.oneRoom.bgColor = 'red';
+            }else{
+                if(pay.newOwner.roomStatus == 1){
+                    state.oneRoom.bgColor = 'lightgreen';
+                }else if(pay.newOwner.roomStatus == 2){
+                    state.oneRoom.bgColor = 'lightblue';
+                }else if(pay.newOwner.roomStatus == 3){
+                    state.oneRoom.bgColor = 'yellow';
+                }else if(pay.newOwner.roomStatus == 4){
+                    state.oneRoom.bgColor = 'yellow'; 
+                }else if(pay.newOwner.roomStatus == 5){
+                    state.oneRoom.bgColor = 'yellow'; 
+                }else{
+                    state.oneRoom.bgColor = 'yellow'; 
+                }
+            }
+
             state.hisOneOwner.unshift(pay.newOwner)
             $.ajax({
                 method: 'post',
@@ -115,7 +122,9 @@ export default new Vuex.Store({
                 // contentType: 'json',
                 data:{
                     writeUrl: writeUrl,
-                    newOwner: JSON.stringify(state.hisOneOwner)
+                    writeRoomUrl: writeRoomUrl,
+                    newOwner: JSON.stringify(state.hisOneOwner),
+                    newRoom: JSON.stringify(state.oneRoom)
                 }
             })
         },

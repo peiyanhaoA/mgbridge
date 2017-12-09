@@ -93,7 +93,6 @@ export default {
       .then(function(req){
           vm.managers=req.data;
       })
-
   }
 }
 </script>

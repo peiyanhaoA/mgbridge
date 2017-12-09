@@ -4,11 +4,11 @@
             <table class="table table-bordered" @contextmenu.prevent="edit">
                 <tbody>
                     <tr>
-                        <td :style="{'background-color': this.$store.state.bgcolor[$route.params.index]}">{{ $route.params.roomNum}}</td>
+                        <td :style="{'background-color': this.$store.state.color}">{{ this.$store.state.roomNum}}</td>
                         <td>房主姓名</td>
-                        <td>{{ ownerInfor.ownerName }}</td>
+                        <td>{{ this.$store.state.oneOwner.ownerName }}</td>
                         <td>联系电话</td>
-                        <td>{{ ownerInfor.phoneNumber }}</td>
+                        <td>{{ this.$store.state.oneOwner.phoneNumber }}</td>
                     </tr>
                 </tbody>
                  <tbody>
@@ -24,9 +24,9 @@
                     <tr v-for="lodger in this.$store.state.hisOneRenter[index]">
                         <td>{{ lodger.tenantName }}</td>
                         <td>{{ lodger.personalid }}</td>
-                        <td>>{{ lodger.tenantName }}</td>
-                        <td>>{{ lodger.leaseEnd }}</td>
-                        <td>>{{ lodger.editor }}</td>
+                        <td>{{ lodger.phoneNumber }}</td>
+                        <td>{{ lodger.leaseEnd }}</td>
+                        <td>{{ lodger.editor }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -38,7 +38,7 @@
                     <span v-if="ownerInfor.volunteer == 1">ღ</span>
                     <span v-if="ownerInfor.residence == 0">√</span>
                     <span v-if="ownerInfor.minLivings == 2">△</span>
-                    <span v-if="this.$store.state.bgcolor[$route.params.index] == 'red'">jiankong</span>
+                    <span v-if="this.$store.state.color == 'red'">jiankong</span>
                 </div>
                 <ul class="pagination float-right" style="margin:0;padding:0;">
 					<li class="page-item">
@@ -87,7 +87,7 @@ export default {
         }
     },
     mounted(){
-        this.$store.commit('searchInfo', {roomNum: this.$route.params.roomNum})
+        this.$store.commit('searchInfo')
     }
 }
 </script>

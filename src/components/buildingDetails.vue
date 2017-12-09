@@ -1,11 +1,11 @@
 <template>
   <div id="bdetails" class="position-absolute">
       <div class="card position-absolute" id="listsCard">
-          <h3><b>楼层走访统计表（<span>{{ $route.params.building }}</span>栋<span>{{ this.$store.state.ownerInfo.length }}</span>户）</b></h3>
+          <h3><b>楼层走访统计表（<span>{{ $route.params.building }}</span>栋<span>{{ this.$store.state.roomInfo.length }}</span>户）</b></h3>
         <div id="lists">
              <div class="d-flex flex-wrap" :style="{width: this.$store.state.width, 'margin-left': '20px'}">
-                 <div id="rowD" v-for="(room, index) in this.$store.state.ownerInfo">
-                    <span id="roomNum" @click="showPersonInfo($event, index)" :style="{'background-color': bgcolor[index]}">{{room[0].roomNumber}}</span>
+                 <div id="rowD" v-for="(room, index) in this.$store.state.roomInfo">
+                    <span id="roomNum" @click="showPersonInfo($event, index)" :style="{'background-color': room.bgColor}">{{room.roomNumber}}</span>
                     <span id="icon">
                         <span v-if="room.partyMember == 1">☆</span>
                         <span v-if="room.oldman == 1">□</span>
@@ -13,6 +13,7 @@
                         <span v-if="room.volunteer == 1">ღ</span>
                         <span v-if="room.residence == 0">√</span>
                         <span v-if="room.minLivings == 2">△</span>
+                        <span v-if="room.roomStatus == 5">○</span>
                     </span>
                 </div>
              </div>
@@ -35,8 +36,8 @@ export default {
             this.$router.push({path: '/home'})
         },
         showPersonInfo(e, index){
-            
-          this.$router.push({name: 'personInfo',params: { roomNum: e.target.innerText, index: index }})
+            this.$router.push({name: 'personInfo'})
+            this.$store.commit('saveCAndr',{ roomNum: e.target.innerText, bgcolor: this.$store.state.roomInfo[index].bgColor})
         }
     }
 }

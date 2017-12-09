@@ -1,7 +1,7 @@
 <template>
     <div style="width:100%;height:100%;">
-      <div v-show="bindRoomerShow">
-          <span style="margin-left:10px;cursor: pointer;" v-for="(roomer, index) in this.$store.state.hisOneRenter" @click="bindRoomer(index)">{{ roomer.tenantName }}</span>
+      <div>
+          <span style="margin-left:10px;cursor: pointer;" v-for="(roomer, index) in this.$store.state.hisOneRenter[0]" @click="bindRoomer(index)">{{ roomer.tenantName }}</span>
       </div>
       <div style="height:480px; overflow-y: scroll;">
         <el-form ref="form" :inline="true" :model="renterInf" label-width="100px">
@@ -192,9 +192,9 @@
         </el-form>
       </div>
       <div id="renterBtns">
-              <el-button size="mini" type="primary" :disabled="disabledSave" @click="onSubmit">保存</el-button>
+              <el-button size="mini" type="primary" :disabled="disabled" @click="save">保存</el-button>
               <el-button size="mini" type="primary" @click="deleRenter">删除</el-button>
-              <el-button size="mini" type="primary" @click="cancel">取消</el-button>
+              <el-button size="mini" type="primary" @click="cancel">返回</el-button>
           </div>
     </div>
   
@@ -248,45 +248,49 @@ export default {
         editor: '', //录入者
         uDate: ''  // 更新时间
       },
-      bindRoomerShow: false,
       lodger: this.$store.state.hisOneRenter[0],
       index: null,
-      disabledSave: true
+      disabled: true
     }
   },
   mounted(){
-      console.log(this.$store.state.hisOneRenter[0])
-    if(this.$store.state.hisOneRenter[0].length != 0){
-      this.bindRoomerShow = true;
-    }
+      if(this.$store.state.hisOneRenter.length == 0){
+          this.disabled = false
+      }
   },
   methods: {
-    onSubmit(){
+    save(){
       let lodger = [];
-      this.lodger.forEach(function(e , i){
-          if(i == this.index){
-             lodger.push(this.renterInf) 
-          }else{
-             lodger.push(e) 
-          }
-      });
-      this.$router.commit('writeRanter',{lodger: lodger})
+      let vm = this;
+      if(this.lodger){
+            vm.lodger.forEach(function(e , i){
+                if(i == vm.index){
+                    lodger.push(vm.renterInf);
+                }else{
+                    lodger.push(e);
+                }
+            });
+      }else{
+          lodger.push(vm.renterInf);
+      }
+    
+      vm.$store.commit('writeRanter',{lodger: lodger})
     },
     cancel(){
-      this.$router.push({name: 'personInfo'});
+      this.$router.go(-1);
     },
     deleRenter(){
         let lodger = [];
         this.lodger.forEach(function(e , i){
             lodger.push(e) 
         });
-        lodger.splice(index,1)
+        lodger.splice(this.index,1)
         this.$router.commit('writeRanter',{lodger: lodger})
     },
     bindRoomer(index){
+         this.disabled = false
         this.index = index;
-        this.disabled = false;
-        let tenant = lodger[index]
+        let tenant = this.lodger[this.index]
         for(let key in tenant){
             this.renterInf[key] =  tenant[key]
         }
