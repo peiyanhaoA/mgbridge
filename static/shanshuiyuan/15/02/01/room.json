@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"zone":"025","district":"06","subdistrict":"01","community":"04","village":"燕升园","building":"15","itemID":"","roomID":"","cDate":"2017-12-4","uDate":"2017-12-4","floor":"02","roomNumber":"201","partyMember":"","oldman":"","singleOld":"","volunteer":"","residence":"","minLivings":"","roomStatus":"","bgColor":"red"}
+=======
+{"zone":"025","district":"06","subdistrict":"01","community":"04","village":"燕升园","building":"15","itemID":"","roomID":"","cDate":"2017-12-4","uDate":"2017-12-4","floor":"02","roomNumber":"201","partyMember":"","oldman":"","singleOld":"","volunteer":"","residence":"","minLivings":"","roomStatus":"","bgColor":"yellow"}
+>>>>>>> d5fdc2af642763a53daae3eb096442fb7a0a04b5

@@ -34,18 +34,9 @@ export default {
     login(){
       let vm = this;
       // vm.fullscreenLoading = true;
-      
-      $.ajax({
-          method: 'post',
-          url: '/api/obtain',
-          success(res){
-            vm.$store.commit('getRoomInfo',res)
-            // vm.fullscreenLoading = false;
-            vm.$router.replace({
-              path: '/home'
-            });
-          }
-      });
+       vm.$router.replace({
+          path: '/home'
+        });
     }
   }
 }

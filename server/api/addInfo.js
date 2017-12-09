@@ -123,6 +123,7 @@ router.post('/profile', upload.single('file'), function(req, res, next) {
 //     }
 // })
 
+<<<<<<< HEAD
 router.post('/obtain', function(req, res) {
     let info = [];
     let building = fs.readdirSync('./static/shanshuiyuan');
@@ -151,10 +152,14 @@ router.post('/obtain', function(req, res) {
 });
 
 router.post('/getOwner', function(req, res) {
+=======
+router.post('/getOwner',function(req,res){
+>>>>>>> d5fdc2af642763a53daae3eb096442fb7a0a04b5
     let buildNum = req.body.build;
     let ownerInfo = [];
     let row = [];
     let renterInfo = [];
+    let buildInfo = [];
     let findex = '';
     let rindex = '';
     let buildUrl = './static/shanshuiyuan/' + buildNum;
@@ -169,6 +174,7 @@ router.post('/getOwner', function(req, res) {
             rindex = rindex;
             let roomUrl = roomsUrl + '/' + ele;
             let room = fs.readdirSync(roomUrl);
+            let buildInfoUrl = roomUrl + '/' + 'room.json';
             let ownerInfoUrl = roomUrl + '/' + 'owner.json';
             let renterInfoUrl = roomUrl + '/' + 'renter.json';
             fs.open(ownerInfoUrl, 'r', function(err, fd) {
@@ -176,11 +182,26 @@ router.post('/getOwner', function(req, res) {
                 ownerInfo.push(JSON.parse(owner.toString()));
                 fs.close(fd)
             });
+<<<<<<< HEAD
             fs.open(renterInfoUrl, 'r', function(err, fd) {
                 let owner = fs.readFileSync(renterInfoUrl);
                 renterInfo.push(JSON.parse(owner.toString()));
+=======
+            fs.open(renterInfoUrl, 'r', function(err, fd){
+                let renter = fs.readFileSync(renterInfoUrl);
+                if(renter.length == 0){
+                    renterInfo.push(renter)
+                }else{
+                    renterInfo.push(JSON.parse(renter.toString())) 
+                }
+>>>>>>> d5fdc2af642763a53daae3eb096442fb7a0a04b5
                 fs.close(fd)
-            })
+            });
+            fs.open(buildInfoUrl, 'r', function(err, fd){
+                let build = fs.readFileSync(buildInfoUrl);
+                buildInfo.push(JSON.parse(build.toString()));
+                fs.close(fd)
+            });
         })
 
     })
@@ -188,7 +209,8 @@ router.post('/getOwner', function(req, res) {
         let obj = {
             rows: row,
             owner: ownerInfo,
-            renter: renterInfo
+            renter: renterInfo,
+            build: buildInfo
         }
         res.send(obj)
     }, 2000)
@@ -196,15 +218,23 @@ router.post('/getOwner', function(req, res) {
 
 router.post('/writeOwnerInfo', function(req, res) {
     let writerUrl = req.body.writeUrl;
+    let writeRoomUrl = req.body.writeRoomUrl;
     let newOwnerInfo = req.body.newOwner;
+    let newRoomInfo = req.body.newRoom;
     let writerStream = fs.createWriteStream(writerUrl);
     writerStream.write(newOwnerInfo, 'UTF8');
     writerStream.on('finish', function() {
-        console.log("写入完成。");
+        console.log("房主写入完成。");
     });
 
     writerStream.on('error', function(err) {
         console.log(err.stack);
+    });
+
+    let writerStreamRoom = fs.createWriteStream(writeRoomUrl);
+    writerStreamRoom.write(newRoomInfo,'UTF8');
+    writerStreamRoom.on('finish', function() {
+        console.log("房间写入完成。");
     });
 })
 

@@ -173,8 +173,8 @@
             <el-input size="mini" style="width:150px;" v-model="ownerInf.employerPhone"></el-input>
         </el-form-item>
         <div id="ownerBtns">
-            <el-button type="primary" @click="onSubmit">保存</el-button>
-            <el-button @click="cancel">取消</el-button>
+            <el-button size="mini" type="primary" @click="onSubmit">保存</el-button>
+            <el-button size="mini" @click="cancel">返回</el-button>
         </div>
       </el-form>
     </div>
@@ -211,7 +211,6 @@ export default {
             corrected:'',
             psychosis:'',
             monitoring:'',
-
             resitdenceAdd:'',
             religious:'',
             militaryDetail:'',
@@ -226,26 +225,26 @@ export default {
             bloodType:'',           
             documents:''
 
-        }
+        },
+        roomInfo: {}
     }
   },
   methods:{
     onSubmit(){
       let vm = this;
-      this.$store.commit('writeOwner', {newOwner: vm.ownerInf})
+      this.$store.commit('writeOwner', {newOwner: vm.ownerInf});
     },
     cancel(){
-      this.$router.push({name: 'personInfo'});
+      this.$router.go(-1);
     }
   },
   mounted(){
     let vm = this;
     vm.$events.on('infoEvent', function(data){
-        
         for(let key in data){
             vm.ownerInf[key] = data[key]
         }
-    })
+    });
   }
 }
 </script>
