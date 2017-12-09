@@ -469,11 +469,16 @@ export default {
             alert('文件不符合格式！');
         }        
     },
+<<<<<<< HEAD
     /**getExcels(el){//导入表格，批量导入房主和房客
+=======
+    getExcels(el){//导入表格，批量导入房主和房客
+>>>>>>> bfb433a1c8a54a9e5f1a416246a9e7cdf5ce20ec
         var vm=this;
         var obj=el.target;
         importfile(obj);
         setTimeout(function(){
+<<<<<<< HEAD
             console.log(fileDt);
             for(var i=1;i<fileDt.Sheet1.length;i++){
                 let row=fileDt.Sheet1[i];
@@ -510,6 +515,44 @@ export default {
                     corrected:row[45],
                     psychosis:'',
                     monitoring:'',
+=======
+            for(var i=1;i<fileDt.Sheet1[0].length;i++){
+                let row=fileDt.Sheet1;
+                console.log(row);return;
+                // vm.ownerExcel.push({
+                //     present:1,
+                //     vilage:row[0],
+                //     building:row[1],
+                //     unit:row[3],
+                //     roomNumber:row[4],
+                //     personNumber:row[7],
+                //     relationShip:row[8],
+                //     ownerName:row[9],
+                //     sex:row[13],
+                //     nationality:row[16],
+                //     residence:row[22],
+                //     personalid:row[11],
+                //     roomStatus:row[10],
+                //     phoneNumber:row[18],
+                //     merriageStatus:row[17],
+                //     partyMember:row[36],
+                //     volunteer:'',
+                //     employment:row[28],
+                //     educationDegree:row[20],
+                //     resident:row[22],
+                //     oldman:row[40],
+                //     singleOld:row[42],
+                //     minLivings:row[32],
+                //     disability:row[34],
+                //     seriousHealth:row[35],
+                //     specialCare:row[37],
+                //     serviceMan:row[38],
+                //     retirement:row[39],
+                //     released:row[44],
+                //     corrected:row[45],
+                //     psychosis:'',
+                //     monitoring:'',
+>>>>>>> bfb433a1c8a54a9e5f1a416246a9e7cdf5ce20ec
 
                     resitdenceAdd:'',
                     religious:'',
