@@ -16,8 +16,10 @@ const upload = multer({
 
 //增加房主及房客信息
 router.post('/getAll', function(req, res) {
+
     let room = req.body.roomInfo;
     let owner = req.body.ownerInfo;
+    console.log(owner);
     let renter = req.body.renterArr;
     let building = room.building;
     let floor = '';

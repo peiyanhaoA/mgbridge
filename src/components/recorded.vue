@@ -28,8 +28,8 @@
                     <div class="col-sm-4">
                         <label class="recordLabel">性别</label>
                         <select class="recordForm" v-model="ownerInfo.sex">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">男</option>
+                            
+                            <option value="0" selected>男</option>
                             <option value="1">女</option>
                         </select>                         
                     </div>
@@ -48,7 +48,7 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">房屋状态</label>
                         <select class="recordForm" v-model="ownerInfo.roomStatus">
-                            <option selected value="" disabled>请选择</option>
+                            
                             <option value="1">自住</option>
                             <option value="2">出租</option>
                             <option value="3">未拿房</option>
@@ -60,16 +60,16 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">户籍标志</label>
                         <select class="recordForm" v-model="ownerInfo.residence">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非户籍</option>
+                            
+                            <option value="0" selected>非户籍</option>
                             <option value="1">户籍</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">婚姻状态</label>
                         <select class="recordForm" v-model="ownerInfo.merriageStatus">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">未婚</option>
+                            
+                            <option value="0" selected>未婚</option>
                             <option value="1">已婚</option>
                             <option value="2">离异</option>
                         </select>                         
@@ -77,32 +77,32 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">政治面貌</label>
                         <select class="recordForm" v-model="ownerInfo.partyMember">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非党员</option>
+                            
+                            <option value="0" selected>非党员</option>
                             <option value="1">党员</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否志愿者</label>
                         <select class="recordForm" v-model="ownerInfo.volunteer">
-                            <option selected value="" disabled>请选择</option>
+                            
                             <option value="1">是</option>
-                            <option value="0">否</option>
+                            <option value="0" selected>否</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">就业状态</label>
                         <select class="recordForm" v-model="ownerInfo.employment">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">未就业</option>
+                            
+                            <option value="0" selected>未就业</option>
                             <option value="1">就业</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">文化程度</label>
                         <select class="recordForm" v-model="ownerInfo.educationDegree">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">文盲</option>
+                            
+                            <option value="0" selected>文盲</option>
                             <option value="1">小学</option>
                             <option value="2">中学</option>
                             <option value="3">大学</option>
@@ -113,32 +113,32 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否常驻</label>
                         <select class="recordForm" v-model="ownerInfo.resident">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">常驻</option>
+                            
+                            <option value="0" selected>常驻</option>
                             <option value="1">流动</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">60岁以上</label>
                         <select class="recordForm" v-model="ownerInfo.oldman">
-                            <option selected value="" disabled>请选择</option>
+                            
                             <option value="1">是</option>
-                            <option value="0">否</option>
+                            <option value="0" selected>否</option>
                         </select>                         
                     </div>
                     <div class="col-sm-7">
                         <label class="recordLabel">是否独居老人</label>
                         <select class="recordForm" v-model="ownerInfo.singleOld">
-                            <option selected value="" disabled>请选择</option>
+                            
                             <option value="1">非独居老人</option>
-                            <option value="0">独居老人</option>
+                            <option value="0" selected>独居老人</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">困难户</label>
                         <select class="recordForm" v-model="ownerInfo.minLivings">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非低保户</option>
+                            
+                            <option value="0" selected>非低保户</option>
                             <option value="1">低保边缘户</option>
                             <option value="2">低保户</option>
                         </select>                         
@@ -146,48 +146,47 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否残疾</label>
                         <select class="recordForm" v-model="ownerInfo.disability">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">残疾</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否重疾</label>
                         <select class="recordForm" v-model="ownerInfo.seriousHealth">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">重疾</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否优抚</label>
                         <select class="recordForm" v-model="ownerInfo.specialCare">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非优抚</option>
+                            
+                            <option value="0" selected>非优抚</option>
                             <option value="1">优抚</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否现役</label>
                         <select class="recordForm" v-model="ownerInfo.serviceMan">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非现役</option>
+                            
+                            <option value="0" selected>非现役</option>
                             <option value="1">现役</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否退役</label>
-                        <select class="recordForm" v-model="ownerInfo.retirement">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">非退役</option>
+                        <select class="recordForm" v-model="ownerInfo.retirement">                            
+                            <option value="0" selected>非退役</option>
                             <option value="1">退役</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否刑释</label>
                         <select class="recordForm" v-model="ownerInfo.released">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">刑释</option>
                             <option value="2">解教</option>
                         </select>                         
@@ -195,24 +194,24 @@
                     <div class="col-sm-6">
                         <label class="recordLabel">是否矫正</label>
                         <select class="recordForm" v-model="ownerInfo.corrected">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">矫正</option>
                         </select>                         
                     </div>
                     <div class="col-sm-8">
                         <label class="recordLabel">是否重度精神病</label>
                         <select class="recordForm" v-model="ownerInfo.psychosis">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">重度精神病</option>
                         </select>                         
                     </div>
                     <div class="col-sm-6">
                         <label class="recordLabel">是否监控</label>
                         <select class="recordForm" v-model="ownerInfo.monitoring">
-                            <option selected value="" disabled>请选择</option>
-                            <option value="0">正常</option>
+                            
+                            <option value="0" selected>正常</option>
                             <option value="1">监控人群</option>
                         </select>                         
                     </div>
@@ -436,7 +435,7 @@ export default {
             weight:'',
             bloodType:'',           
             documents:'',
-            bgColor:''
+            bgColor:'yellow'
         },
         renterArr:[],
         src:"",
@@ -469,16 +468,11 @@ export default {
             alert('文件不符合格式！');
         }        
     },
-<<<<<<< HEAD
     /**getExcels(el){//导入表格，批量导入房主和房客
-=======
-    getExcels(el){//导入表格，批量导入房主和房客
->>>>>>> bfb433a1c8a54a9e5f1a416246a9e7cdf5ce20ec
         var vm=this;
         var obj=el.target;
         importfile(obj);
         setTimeout(function(){
-<<<<<<< HEAD
             console.log(fileDt);
             for(var i=1;i<fileDt.Sheet1.length;i++){
                 let row=fileDt.Sheet1[i];
@@ -515,44 +509,6 @@ export default {
                     corrected:row[45],
                     psychosis:'',
                     monitoring:'',
-=======
-            for(var i=1;i<fileDt.Sheet1[0].length;i++){
-                let row=fileDt.Sheet1;
-                console.log(row);return;
-                // vm.ownerExcel.push({
-                //     present:1,
-                //     vilage:row[0],
-                //     building:row[1],
-                //     unit:row[3],
-                //     roomNumber:row[4],
-                //     personNumber:row[7],
-                //     relationShip:row[8],
-                //     ownerName:row[9],
-                //     sex:row[13],
-                //     nationality:row[16],
-                //     residence:row[22],
-                //     personalid:row[11],
-                //     roomStatus:row[10],
-                //     phoneNumber:row[18],
-                //     merriageStatus:row[17],
-                //     partyMember:row[36],
-                //     volunteer:'',
-                //     employment:row[28],
-                //     educationDegree:row[20],
-                //     resident:row[22],
-                //     oldman:row[40],
-                //     singleOld:row[42],
-                //     minLivings:row[32],
-                //     disability:row[34],
-                //     seriousHealth:row[35],
-                //     specialCare:row[37],
-                //     serviceMan:row[38],
-                //     retirement:row[39],
-                //     released:row[44],
-                //     corrected:row[45],
-                //     psychosis:'',
-                //     monitoring:'',
->>>>>>> bfb433a1c8a54a9e5f1a416246a9e7cdf5ce20ec
 
                     resitdenceAdd:'',
                     religious:'',
@@ -596,32 +552,35 @@ export default {
             return;
         }
 
-        if(vm.roomInfo.released == 1 || vm.roomInfo.corrected == 1 ||
-         vm.roomInfo.psychosis == 1 || vm.roomInfo.monitoring == 1){
-           vm.roomInfo.bgColor='red';
+        if(vm.ownerInfo.released == 1 || vm.ownerInfo.corrected == 1 ||
+         vm.ownerInfo.psychosis == 1 || vm.ownerInfo.monitoring == 1){
+           vm.ownerInfo.bgColor='red';
+            console.log('=============');
+           
         }else{
-            if(vm.roomInfo.roomStatus == 1){
-                vm.roomInfo.bgColor='lightgreen';
-            }else if(vm.roomInfo.roomStatus == 2){
-                vm.roomInfo.bgColor='lightblue';
-            }else if(vm.roomInfo.roomStatus == 3){
-                vm.roomInfo.bgColor='yellow'
-            }else if(vm.roomInfo.roomStatus == 4){
-                vm.roomInfo.bgColor='yellow';
-            }else if(vm.roomInfo.roomStatus == 5){
-                vm.roomInfo.bgColor='yellow';
+            console.log('--------');
+            if(vm.ownerInfo.roomStatus == 1){
+                vm.ownerInfo.bgColor='lightgreen';
+            }else if(vm.ownerInfo.roomStatus == 2){
+                vm.ownerInfo.bgColor='lightblue';
+            }else if(vm.ownerInfo.roomStatus == 3){
+                vm.ownerInfo.bgColor='yellow';
+            }else if(vm.ownerInfo.roomStatus == 4){
+                vm.ownerInfo.bgColor='yellow';
+            }else if(vm.ownerInfo.roomStatus == 5){
+                vm.ownerInfo.bgColor='yellow';
             }else{
-                vm.roomInfo.bgColor='yellow';
+                vm.ownerInfo.bgColor='yellow';
             }
         }
-
-
+        
         axios.post('/api/getAll',{
             roomInfo:vm.roomInfo,
             ownerInfo:vm.ownerInfo,
             renterArr:vm.renterArr
         })
-        .then(function(data){           
+        .then(function(data){    
+            console.log('00000000000000');       
             alert('添加成功');
             vm.tab();
         })
