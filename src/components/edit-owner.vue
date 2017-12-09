@@ -173,8 +173,8 @@
             <el-input size="mini" style="width:150px;" v-model="ownerInf.employerPhone"></el-input>
         </el-form-item>
         <div id="ownerBtns">
-            <el-button type="primary" @click="onSubmit">保存</el-button>
-            <el-button @click="cancel">返回</el-button>
+            <el-button size="mini" type="primary" @click="onSubmit">保存</el-button>
+            <el-button size="mini" @click="cancel">返回</el-button>
         </div>
       </el-form>
     </div>

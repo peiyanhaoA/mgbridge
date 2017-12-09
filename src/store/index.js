@@ -53,10 +53,14 @@ export default new Vuex.Store({
         },
         searchInfo(state){
             state.ownerInfo.forEach(function(e){
+                console.log(e)
                 if(e.length != 0){
+                    console.log("113333333333")
+                    console.log(e)
                     if(e[0].roomNumber == state.roomNum){
                         state.oneOwner = e[0];
                         state.hisOneOwner = e;
+                        console.log(state.oneOwner)
                     }
                 }
             });
@@ -97,7 +101,7 @@ export default new Vuex.Store({
             state.oneRoom.volunteer = pay.newOwner.volunteer;
             state.oneRoom.residence = pay.newOwner.residence;
             state.oneRoom.minLivings = pay.newOwner.minLivings;
-            if(pay.newOwner.released == 1 || pay.newOwner.corrected == 1 || pay.newOwner.psychosis == 1 || pay.newOwner.monitoring == 1){
+            if(pay.newOwner.released != 0 || pay.newOwner.corrected == 1 || pay.newOwner.psychosis == 1 || pay.newOwner.monitoring == 1){
                 state.oneRoom.bgColor = 'red';
             }else{
                 if(pay.newOwner.roomStatus == 1){
